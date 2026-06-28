@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Gülhan Sönmez</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@300;400&display=swap"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+    body {
+      background: #06060e;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      font-family: 'Barlow', sans-serif;
+      overflow: hidden;
+    }
+
+    /* ambient glow on bg */
+    body::before {
+      content:'';
+      position:fixed;inset:0;
+      background: radial-gradient(ellipse 60% 55% at 50% 48%,
+        rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events:none;
+    }
+
+    /* ═══════════════════════════════════
+       SCENE — 3-D perspective container
+    ═══════════════════════════════════ */
+    .scene {
+      perspective: 900px;
+      perspective-origin: 50% 42%;
+      width: 320px;
+      height: 380px;
+      position: relative;
+    }
+
+    /* ═══════════════════════════════════
+       ALUMINUM WINDOW FRAME
+       (stays flat, not animated — gives
+       the "fixed frame" illusion)
+    ═══════════════════════════════════ */
+    .win {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+    }
+
+    /* outer frame uses SVG-drawn aluminum */
+    .win svg.frame-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* ═══════════════════════════════════
+       LETTERS — live in 3-D space
+    ═══════════════════════════════════ */
+    .letters-3d {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      /* clip to window interior */
+      clip-path: inset(28px 28px 52px 28px);
+    }
+
+    .letter {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: 130px;
+      color: #c9a84c;
+      line-height: 1;
+      /* will be driven by JS */
+      will-change: transform, opacity;
+      text-shadow:
+        0 0 40px rgba(201,168,76,0.0),
+        0 2px 0 rgba(0,0,0,0.5);
+    }
+
+    /* ═══════════════════════════════════
+       BRAND TEXT
+    ═══════════════════════════════════ */
+    .brand { text-align: center; }
+    .brand h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #c9a84c;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+    }
+    .brand p {
+      font-size: 9px;
+      color: rgba(255,255,255,0.22);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="scene">
+
+  <!-- ── WINDOW FRAME (SVG, aluminum look) ── -->
+  <div class="win">
+    <!--
+      Aluminum window design:
+      • Arched top (architectural)
+      • Thick profile with metallic gradient (linear: dark→highlight→dark)
+      • Two vertical panels + arch divider
+      • Bottom sill with shadow
+      • Subtle reflection line on each side profile
+    -->
+    <svg class="frame-svg" viewBox="0 0 320 380"
+         fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+
+        <!-- aluminum metallic gradient (vertical) -->
+        <linearGradient id="alV" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"   stop-color="#6b5820"/>
+          <stop offset="20%"  stop-color="#c9a84c"/>
+          <stop offset="45%"  stop-color="#ffe99a"/>
+          <stop offset="60%"  stop-color="#c9a84c"/>
+          <stop offset="100%" stop-color="#6b5820"/>
+        </linearGradient>
+
+        <!-- horizontal version -->
+        <linearGradient id="alH" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#6b5820"/>
+          <stop offset="20%"  stop-color="#c9a84c"/>
+          <stop offset="45%"  stop-color="#ffe99a"/>
+          <stop offset="60%"  stop-color="#c9a84c"/>
+          <stop offset="100%" stop-color="#6b5820"/>
+        </linearGradient>
+
+        <!-- arch gradient -->
+        <linearGradient id="alArch" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"   stop-color="#6b5820"/>
+          <stop offset="35%"  stop-color="#ffe99a"/>
+          <stop offset="65%"  stop-color="#c9a84c"/>
+          <stop offset="100%" stop-color="#6b5820"/>
+        </linearGradient>
+
+        <!-- glass tint -->
+        <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"   stop-color="rgba(201,168,76,0.06)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.01)"/>
+        </linearGradient>
+
+        <!-- drop shadow filter for sill -->
+        <filter id="sillShadow" x="-10%" y="-10%" width="120%" height="300%">
+          <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="rgba(0,0,0,0.6)"/>
+        </filter>
+
+        <!-- reflection filter -->
+        <filter id="frameGlow" x="-5%" y="-5%" width="110%" height="110%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+
+      </defs>
+
+      <!-- ── glass panes (background) ── -->
+      <!-- left pane -->
+      <rect x="28" y="28" width="122" height="292" fill="url(#glass)"/>
+      <!-- right pane -->
+      <rect x="170" y="28" width="122" height="292" fill="url(#glass)"/>
+
+      <!-- ── ARCH top ── -->
+      <!-- arch outer ring (thick) -->
+      <path d="M 20,160 L 20,28 Q 20,10 38,10 L 282,10 Q 300,10 300,28 L 300,160 Z"
+            fill="none"
+            stroke="url(#alArch)"
+            stroke-width="14"
+            filter="url(#frameGlow)"/>
+
+      <!-- ── LEFT SIDE PROFILE ── -->
+      <rect x="14" y="22" width="14" height="306" rx="1"
+            fill="url(#alV)" filter="url(#frameGlow)"/>
+      <!-- highlight reflection line -->
+      <rect x="17" y="28" width="2" height="294" rx="1"
+            fill="rgba(255,255,255,0.18)"/>
+
+      <!-- ── RIGHT SIDE PROFILE ── -->
+      <rect x="292" y="22" width="14" height="306" rx="1"
+            fill="url(#alV)" filter="url(#frameGlow)"/>
+      <rect x="301" y="28" width="2" height="294" rx="1"
+            fill="rgba(255,255,255,0.18)"/>
+
+      <!-- ── TOP HEADER BAR ── -->
+      <rect x="14" y="14" width="292" height="14" rx="2"
+            fill="url(#alH)" filter="url(#frameGlow)"/>
+
+      <!-- ── CENTER DIVIDER (vertical) ── -->
+      <!-- thick center post -->
+      <rect x="150" y="22" width="20" height="306" rx="1"
+            fill="url(#alV)" filter="url(#frameGlow)"/>
+      <!-- highlight -->
+      <rect x="154" y="28" width="3" height="294" rx="1"
+            fill="rgba(255,255,255,0.2)"/>
+
+      <!-- ── HORIZONTAL RAIL (mid-window) ── -->
+      <rect x="14" y="168" width="292" height="12" rx="1"
+            fill="url(#alH)" filter="url(#frameGlow)"/>
+      <rect x="20" y="170" width="280" height="2" rx="1"
+            fill="rgba(255,255,255,0.15)"/>
+
+      <!-- ── BOTTOM FRAME BAR ── -->
+      <rect x="14" y="322" width="292" height="14" rx="2"
+            fill="url(#alH)" filter="url(#frameGlow)"/>
+
+      <!-- ── SILL (wide, 3-D shelf) ── -->
+      <!-- sill face -->
+      <rect x="2" y="334" width="316" height="22" rx="2"
+            fill="url(#alH)" filter="url(#sillShadow)"/>
+      <!-- sill top surface highlight -->
+      <rect x="2" y="334" width="316" height="6" rx="2"
+            fill="rgba(255,235,160,0.22)"/>
+      <!-- sill underside shadow face -->
+      <rect x="6" y="354" width="308" height="8" rx="1"
+            fill="rgba(0,0,0,0.45)"/>
+
+      <!-- ── CORNER SCREWS / BOLTS (decorative) ── -->
+      <circle cx="30" cy="30" r="4" fill="url(#alArch)" opacity="0.8"/>
+      <circle cx="290" cy="30" r="4" fill="url(#alArch)" opacity="0.8"/>
+      <circle cx="30" cy="328" r="4" fill="url(#alArch)" opacity="0.8"/>
+      <circle cx="290" cy="328" r="4" fill="url(#alArch)" opacity="0.8"/>
+
+      <!-- small cross on each bolt -->
+      <line x1="27" y1="30" x2="33" y2="30" stroke="#06060e" stroke-width="1.2"/>
+      <line x1="30" y1="27" x2="30" y2="33" stroke="#06060e" stroke-width="1.2"/>
+      <line x1="287" y1="30" x2="293" y2="30" stroke="#06060e" stroke-width="1.2"/>
+      <line x1="290" y1="27" x2="290" y2="33" stroke="#06060e" stroke-width="1.2"/>
+      <line x1="27" y1="328" x2="33" y2="328" stroke="#06060e" stroke-width="1.2"/>
+      <line x1="30" y1="325" x2="30" y2="331" stroke="#06060e" stroke-width="1.2"/>
+      <line x1="287" y1="328" x2="293" y2="328" stroke="#06060e" stroke-width="1.2"/>
+      <line x1="290" y1="325" x2="290" y2="331" stroke="#06060e" stroke-width="1.2"/>
+
+      <!-- ── WINDOW HANDLE (right panel) ── -->
+      <rect x="148" y="188" width="24" height="8" rx="4"
+            fill="url(#alH)" opacity="0.9"/>
+      <rect x="155" y="184" width="10" height="16" rx="3"
+            fill="url(#alV)" opacity="0.85"/>
+
+    </svg>
+  </div>
+
+  <!-- ── LETTERS in 3-D space ── -->
+  <div class="letters-3d">
+    <span class="letter" id="letterG">G</span>
+    <span class="letter" id="letterS">S</span>
+  </div>
+
+</div>
+
+<!-- brand name -->
+<div class="brand">
+  <h1>Gülhan Sönmez</h1>
+  <p>Yapı Tasarım</p>
+</div>
+
+<script>
+/*
+  3-D LETTER ANIMATION
+  ─────────────────────────────────────────────
+  Cycle: 14 s
+
+  Phase A  [0–25%]   Letters far inside (deep Z), tiny, invisible
+                     → fly OUT toward viewer through the glass
+
+  Phase B  [25–55%]  Letters full size, in front of window, glow
+
+  Phase C  [55–80%]  Letters fly BACK through window, shrink, disappear
+
+  Phase D  [80–100%] Dark pause
+
+  G and S have a slight offset in timing for a staggered effect.
+*/
+
+const CYCLE = 14000;
+const G = document.getElementById('letterG');
+const S = document.getElementById('letterS');
+
+const GOLD = '#c9a84c';
+const GOLD_BRIGHT = '#ffe99a';
+
+function eio(t) { return t < 0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+function lerp(a,b,t){ return a+(b-a)*t; }
+function clamp(v,lo=0,hi=1){ return Math.max(lo,Math.min(hi,v)); }
+function ph(t,s,e){ return eio(clamp((t-s)/(e-s))); }
+
+let t0 = null;
+
+function applyLetter(el, t, stagger) {
+  const ts = clamp(t - stagger, 0, 1);
+
+  // Phase A: fly out
+  const flyOut  = ph(ts, 0.00, 0.28);
+  // Phase B: hold
+  const hold    = clamp((ts - 0.28) / (0.28), 0, 1); // 0.28–0.56
+  // Phase C: fly in
+  const flyIn   = ph(ts, 0.56, 0.80);
+
+  let z, opacity, glow, col;
+
+  if (ts < 0.28) {
+    // fly out: from z=-800 to z=0
+    z = lerp(-900, 0, flyOut);
+    opacity = lerp(0, 1, flyOut);
+    glow = 0;
+    col = GOLD;
+  } else if (ts < 0.56) {
+    // hold: full size, glowing
+    z = 0;
+    opacity = 1;
+    const glowP = ph(ts, 0.28, 0.52);
+    glow = lerp(0, 35, glowP) * (1 - ph(ts, 0.50, 0.56));
+    const cr = Math.round(lerp(201,255,glowP*0.5));
+    const cg = Math.round(lerp(168,240,glowP*0.4));
+    const cb = Math.round(lerp(76, 140,glowP*0.35));
+    col = `rgb(${cr},${cg},${cb})`;
+  } else if (ts < 0.80) {
+    // fly back in
+    z = lerp(0, -900, flyIn);
+    opacity = lerp(1, 0, flyIn);
+    glow = 0;
+    col = GOLD;
+  } else {
+    z = -900;
+    opacity = 0;
+    glow = 0;
+    col = GOLD;
+  }
+
+  el.style.transform = `translateZ(${z}px)`;
+  el.style.opacity   = opacity;
+  el.style.color     = col;
+  el.style.textShadow = glow > 0
+    ? `0 0 ${glow.toFixed(0)}px rgba(201,168,76,0.8), 0 0 ${(glow*0.4).toFixed(0)}px rgba(255,220,100,0.5)`
+    : '0 2px 0 rgba(0,0,0,0.5)';
+}
+
+function frame(ts) {
+  if (!t0) t0 = ts;
+  const t = ((ts - t0) % CYCLE) / CYCLE;
+
+  // G slightly ahead, S slightly behind → staggered entry
+  applyLetter(G, t, 0);
+  applyLetter(S, t, 0.04); // 0.04 * 14s = ~0.56s delay
+
+  requestAnimationFrame(frame);
+}
+
+G.style.opacity = 0;
+S.style.opacity = 0;
+
+requestAnimationFrame(frame);
+</script>
+
+</body>
+</html>

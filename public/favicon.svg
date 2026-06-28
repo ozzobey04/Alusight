@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="8" fill="#080810"/>
+  <text x="32" y="38" font-family="Arial,sans-serif" font-weight="900" font-size="22" fill="#c9a84c" text-anchor="middle" letter-spacing="1">OZ</text>
+  <text x="32" y="56" font-family="Arial,sans-serif" font-weight="700" font-size="9" fill="#c0ccd8" text-anchor="middle" letter-spacing="2">ZO</text>
+</svg>

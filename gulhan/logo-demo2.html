@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Gülhan Sönmez — Diamond</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Barlow:wght@300;400&display=swap"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+    body{
+      background:#05050d;
+      min-height:100vh;
+      display:flex;flex-direction:column;
+      align-items:center;justify-content:center;
+      gap:36px;
+      font-family:'Barlow',sans-serif;
+      overflow:hidden;
+    }
+
+    body::before{
+      content:'';position:fixed;inset:0;
+      background:radial-gradient(ellipse 55% 50% at 50% 48%,
+        rgba(201,168,76,0.07) 0%,transparent 70%);
+      pointer-events:none;
+    }
+
+    /* ── stage ── */
+    .stage{
+      position:relative;
+      width:340px;height:340px;
+      display:flex;align-items:center;justify-content:center;
+    }
+
+    /* ── letters layer ── */
+    .letters{
+      position:absolute;
+      display:flex;align-items:center;justify-content:center;
+      gap:0;
+      width:100%;height:100%;
+      pointer-events:none;
+    }
+
+    .ltr{
+      font-family:'Playfair Display',serif;
+      font-style:italic;
+      font-weight:700;
+      font-size:148px;
+      color:#c9a84c;
+      line-height:1;
+      will-change:transform,opacity;
+    }
+
+    /* ── diamond SVG layer ── */
+    .diamond-wrap{
+      position:absolute;
+      inset:0;
+      display:flex;align-items:center;justify-content:center;
+      pointer-events:none;
+    }
+
+    /* ── brand ── */
+    .brand{text-align:center}
+    .brand h1{
+      font-family:'Playfair Display',serif;
+      font-size:18px;font-weight:700;
+      color:#c9a84c;letter-spacing:8px;text-transform:uppercase;
+    }
+    .brand p{
+      font-size:9px;color:rgba(255,255,255,0.22);
+      letter-spacing:5px;text-transform:uppercase;margin-top:6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <!-- LETTERS -->
+  <div class="letters">
+    <span class="ltr" id="lG">G</span>
+    <span class="ltr" id="lS">S</span>
+  </div>
+
+  <!-- DIAMOND SVG -->
+  <div class="diamond-wrap">
+    <!--
+      Princess-cut diamond (top view, brilliant facets)
+      viewBox: -120 -120 240 240  (centre 0,0)
+
+      Outer diamond   : ±100 on axes
+      Table (inner sq): ±42  rotated 45°  → points (0,±42)(±42,0)
+      8 kite facets   : each outer corner → two adjacent table corners
+      4 star facets   : each table corner → 2 adjacent outer midpoints
+      Culet lines     : table corners → centre
+    -->
+    <svg id="diamSvg" width="300" height="300" viewBox="-120 -120 240 240"
+         fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- golden radial gradient fill for inner glow -->
+        <radialGradient id="dFill" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="rgba(255,235,140,0.18)"/>
+          <stop offset="60%"  stop-color="rgba(201,168,76,0.06)"/>
+          <stop offset="100%" stop-color="rgba(201,168,76,0.0)"/>
+        </radialGradient>
+
+        <!-- edge glow -->
+        <filter id="edgeGlow" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="bigGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- fill glow behind everything -->
+      <polygon id="dFillPoly"
+               points="0,-100 100,0 0,100 -100,0"
+               fill="url(#dFill)" opacity="0"/>
+
+      <!-- ── KITE FACETS (8 triangles from outer → table) ── -->
+      <g id="facets" stroke="#c9a84c" stroke-width="1.2" stroke-linejoin="round" opacity="0">
+        <!-- top-right kites -->
+        <polygon points="0,-100  100,0   42,-42" fill="rgba(255,230,120,0.06)"/>
+        <polygon points="0,-100  -100,0  -42,-42" fill="rgba(255,230,120,0.04)"/>
+        <polygon points="100,0   0,100   42,42"   fill="rgba(255,230,120,0.05)"/>
+        <polygon points="-100,0  0,100  -42,42"   fill="rgba(255,230,120,0.07)"/>
+
+        <!-- star facets (table corner → outer midpoints) -->
+        <polygon points="0,-42  50,-50  42,-42"  fill="rgba(255,220,80,0.1)"/>
+        <polygon points="0,-42  -50,-50 -42,-42" fill="rgba(255,220,80,0.08)"/>
+        <polygon points="42,42   50,50  0,42"    fill="rgba(255,220,80,0.1)"/>
+        <polygon points="-42,42 -50,50  0,42"    fill="rgba(255,220,80,0.08)"/>
+        <polygon points="42,-42  50,-50 0,-42"   fill="rgba(201,168,76,0.12)"/>
+        <polygon points="-42,-42 -50,-50 0,-42"  fill="rgba(201,168,76,0.10)"/>
+        <polygon points="42,42   50,50  42,-42"  fill="rgba(201,168,76,0.06)"/>
+        <polygon points="-42,42 -50,50 -42,-42"  fill="rgba(201,168,76,0.06)"/>
+      </g>
+
+      <!-- ── OUTER DIAMOND EDGE (main outline) ── -->
+      <polygon id="dOuter"
+               points="0,-100 100,0 0,100 -100,0"
+               stroke="#c9a84c" stroke-width="2.5"
+               fill="none"
+               filter="url(#edgeGlow)"
+               opacity="0"/>
+
+      <!-- ── TABLE (inner diamond square) ── -->
+      <polygon id="dTable"
+               points="0,-42 42,0 0,42 -42,0"
+               stroke="#c9a84c" stroke-width="1.8"
+               fill="rgba(255,240,160,0.08)"
+               opacity="0"/>
+
+      <!-- ── CULET LINES (table corners → outer midpoints through centre) ── -->
+      <g id="culet" stroke="#c9a84c" stroke-width="1" opacity="0">
+        <line x1="0" y1="-42" x2="0"   y2="-100"/>
+        <line x1="42" y1="0"  x2="100" y2="0"/>
+        <line x1="0" y1="42"  x2="0"   y2="100"/>
+        <line x1="-42" y1="0" x2="-100" y2="0"/>
+
+        <!-- diagonal half-lines for inner facets -->
+        <line x1="0" y1="-42" x2="42"  y2="0"/>
+        <line x1="42" y1="0"  x2="0"   y2="42"/>
+        <line x1="0" y1="42"  x2="-42" y2="0"/>
+        <line x1="-42" y1="0" x2="0"   y2="-42"/>
+      </g>
+
+      <!-- ── GLOW DUPLICATE (blurred, behind) ── -->
+      <polygon id="dGlow"
+               points="0,-100 100,0 0,100 -100,0"
+               stroke="rgba(255,220,100,0.5)" stroke-width="4"
+               fill="none"
+               filter="url(#bigGlow)"
+               opacity="0"/>
+
+    </svg>
+  </div>
+
+</div>
+
+<div class="brand">
+  <h1>Gülhan Sönmez</h1>
+  <p>Yapı Tasarım</p>
+</div>
+
+<script>
+/*
+  CYCLE: 12 s
+  ──────────────────────────────────────────────
+  0–22%   (0–2.6s)   G and S large, side by side
+  22–48%  (2.6–5.8s) Letters converge + shrink → diamond grows in
+  48–70%  (5.8–8.4s) Diamond FULL – facets glow, letters gone
+  70–88%  (8.4–10.6s)Diamond shrinks → letters re-emerge
+  88–100% (10.6–12s) Letters hold, pause
+*/
+
+const CYCLE = 12000;
+
+const lG = document.getElementById('lG');
+const lS = document.getElementById('lS');
+const dOuter    = document.getElementById('dOuter');
+const dTable    = document.getElementById('dTable');
+const dGlow     = document.getElementById('dGlow');
+const facets    = document.getElementById('facets');
+const culet     = document.getElementById('culet');
+const dFillPoly = document.getElementById('dFillPoly');
+const diamSvg   = document.getElementById('diamSvg');
+
+function eio(t){ return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2; }
+function lerp(a,b,t){ return a+(b-a)*t; }
+function clamp(v,lo=0,hi=1){ return Math.max(lo,Math.min(hi,v)); }
+function ph(t,s,e){ return eio(clamp((t-s)/(e-s))); }
+
+// set opacity on SVG element
+function op(el,v){ el.style.opacity = v; }
+// set stroke colour
+function sc(el,col){ el.setAttribute('stroke',col); }
+
+let t0 = null;
+
+function frame(ts){
+  if(!t0) t0 = ts;
+  const t = ((ts-t0) % CYCLE) / CYCLE;
+
+  /* ── progress values ── */
+  const pMerge   = ph(t, 0.22, 0.48);   // 0→1: letters come in, diamond grows
+  const pDiamond = ph(t, 0.44, 0.58);   // 0→1: diamond peak glow
+  const pSplit   = ph(t, 0.70, 0.88);   // 0→1: diamond gone, letters re-emerge
+
+  /* ──────────── LETTERS ──────────── */
+  // G moves right→centre, S moves left→centre during merge
+  // offset in px: start at ±72, end at 0
+  const gOff = lerp(-72, 0, pMerge);
+  const sOff = lerp(72, 0, pMerge);
+
+  // letter scale: full(1) → tiny(0.08) as diamond peaks
+  const lScale = lerp(1, 0.08, pMerge);
+
+  // letter opacity: fade out as merge completes, fade back in on split
+  let lOpacity;
+  if(pSplit > 0){
+    lOpacity = lerp(0, 1, pSplit);
+  } else {
+    lOpacity = lerp(1, 0, pMerge);
+  }
+
+  // letter position during split (re-emerge)
+  const gSplitOff = pSplit > 0 ? lerp(0, -72, pSplit) : gOff;
+  const sSplitOff = pSplit > 0 ? lerp(0,  72, pSplit) : sOff;
+  const lSplitScale = pSplit > 0 ? lerp(0.08, 1, pSplit) : lScale;
+
+  lG.style.transform = `translateX(${pSplit>0 ? gSplitOff : gOff}px) scale(${pSplit>0 ? lSplitScale : lScale})`;
+  lS.style.transform = `translateX(${pSplit>0 ? sSplitOff : sOff}px) scale(${pSplit>0 ? lSplitScale : lScale})`;
+  lG.style.opacity   = lOpacity;
+  lS.style.opacity   = lOpacity;
+
+  // letter glow at peak (hold phase, start & end)
+  const holdGlow = t < 0.22 || t > 0.88;
+  lG.style.textShadow = holdGlow
+    ? '0 0 30px rgba(201,168,76,0.45)'
+    : 'none';
+  lS.style.textShadow = holdGlow
+    ? '0 0 30px rgba(201,168,76,0.45)'
+    : 'none';
+
+  /* ──────────── DIAMOND ──────────── */
+  // diamond appears during merge, peaks, disappears on split
+  let dOpacity = 0;
+  if(pSplit > 0){
+    dOpacity = lerp(1, 0, pSplit);
+  } else {
+    dOpacity = pMerge;
+  }
+
+  // scale the entire SVG diamond in/out
+  const dScale = dOpacity; // 0→1→0
+  diamSvg.style.transform = `scale(${dScale})`;
+
+  op(dOuter,    dOpacity);
+  op(dFillPoly, dOpacity * 0.9);
+  op(facets,    dOpacity);
+  op(culet,     dOpacity * 0.7);
+  op(dTable,    dOpacity);
+
+  // glow pulses at diamond peak
+  const glowVal = dOpacity * pDiamond;
+  op(dGlow, glowVal * 0.85);
+
+  // facet and edge colour brightening at glow peak
+  const bright = glowVal;
+  const r  = Math.round(lerp(201,255,bright*0.5));
+  const g2 = Math.round(lerp(168,235,bright*0.4));
+  const b  = Math.round(lerp(76, 140,bright*0.35));
+  const col = `rgb(${r},${g2},${b})`;
+  sc(dOuter, col);
+  sc(dTable, col);
+  sc(dGlow, `rgba(${r},${g2},${b},0.6)`);
+
+  // drop-shadow on svg at peak
+  diamSvg.style.filter = glowVal > 0.1
+    ? `drop-shadow(0 0 ${(glowVal*18).toFixed(0)}px rgba(255,215,80,0.55))`
+    : 'none';
+
+  /* ── spinning facet shimmer (subtle rotation of inner group) ── */
+  const spinDeg = dOpacity > 0.1
+    ? lerp(0, 8, Math.sin(ts / 800) * 0.5 + 0.5)
+    : 0;
+  facets.style.transform = `rotate(${spinDeg}deg)`;
+
+  requestAnimationFrame(frame);
+}
+
+// init
+lG.style.opacity = 1;
+lS.style.opacity = 1;
+lG.style.transform = 'translateX(-72px) scale(1)';
+lS.style.transform = 'translateX(72px) scale(1)';
+diamSvg.style.transform = 'scale(0)';
+
+requestAnimationFrame(frame);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "appId": "com.ozzo.sef",
+  "appName": "OzzoŞef",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}
