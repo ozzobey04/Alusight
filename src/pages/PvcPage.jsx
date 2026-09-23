@@ -206,7 +206,7 @@ export default function PvcPage(){
     const html = `<!DOCTYPE html><html lang='tr'><head><meta charset='UTF-8'><title>Teklif ${quoteNo}</title>
 <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;padding:40px;color:#111}header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #c9a84c;padding-bottom:20px;margin-bottom:28px}.logo{font-size:28px;font-weight:800;letter-spacing:0.1em}.logo-sub{font-size:10px;letter-spacing:0.2em;color:#888;margin-top:2px}h2{font-size:13px;margin-bottom:14px;color:#555;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid #eee;padding-bottom:6px;margin-top:24px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}.mi{background:#f8f8f8;padding:10px 14px;border-radius:4px}.ml{font-size:10px;color:#999;text-transform:uppercase}.mv{font-size:13px;font-weight:600;margin-top:2px}table{width:100%;border-collapse:collapse;margin-bottom:16px}th{background:#f8f8f8;padding:10px 12px;font-size:11px;text-align:left;font-weight:700;color:#555;text-transform:uppercase}td{padding:10px 12px;font-size:12px;border-bottom:1px solid #f0f0f0}.tr{background:#f8f8f8;font-weight:700}.gr{background:#fff8ec;border:2px solid #c9a84c}.gr td{font-size:15px;font-weight:800;color:#8a6f2e}.nb{background:#f8f8f8;border-left:4px solid #c9a84c;padding:12px 16px;font-size:12px;color:#555;line-height:1.7;margin:16px 0}.sa{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:40px}.sb{border-top:1px solid #ccc;padding-top:8px;text-align:center;font-size:10px;color:#999;text-transform:uppercase}.ft{margin-top:24px;border-top:1px solid #eee;padding-top:10px;font-size:10px;color:#aaa;text-align:center}</style></head>
 <body>
-<header><div><div class='logo'>OZZO</div><div class='logo-sub'>ALÜMINYUM</div></div><div style='text-align:center'><div style='font-size:16px;font-weight:700;margin-bottom:4px'>FİYAT TEKLİFİ</div><div style='font-size:11px;color:#888'>Resmi Teklif Belgesi</div></div><div style='text-align:right;font-size:11px;color:#555;line-height:1.9'><div><strong>Teklif No:</strong> ${quoteNo}</div><div><strong>Tarih:</strong> ${date}</div><div><strong>Geçerlilik:</strong> 30 gün</div></div></header>
+<header><div><div class='logo'>AluSight</div><div class='logo-sub'>ALÜMINYUM</div></div><div style='text-align:center'><div style='font-size:16px;font-weight:700;margin-bottom:4px'>FİYAT TEKLİFİ</div><div style='font-size:11px;color:#888'>Resmi Teklif Belgesi</div></div><div style='text-align:right;font-size:11px;color:#555;line-height:1.9'><div><strong>Teklif No:</strong> ${quoteNo}</div><div><strong>Tarih:</strong> ${date}</div><div><strong>Geçerlilik:</strong> 30 gün</div></div></header>
 <h2>Müşteri Bilgileri</h2><div class='meta'><div class='mi'><div class='ml'>Müşteri Adı</div><div class='mv'>${clientName || 'Belirtilmedi'}</div></div><div class='mi'><div class='ml'>Telefon</div><div class='mv'>${clientPhone || '—'}</div></div></div>
 <h2>Teklif Kalemleri</h2>
 <table><thead><tr><th>Ürün</th><th>Profil Sistemi</th><th>Cam</th><th>Boyut</th><th>Adet</th><th>Uw (W/m²K)</th><th style='text-align:right'>Tutar</th></tr></thead>
@@ -220,12 +220,12 @@ ${extraNotes ? `<h2>Notlar ve Koşullar</h2><div class='nb'>${extraNotes}</div>`
 <div style='background:#f0f7ff;border:1px solid #bcd;border-radius:4px;padding:12px 16px;font-size:11px;color:#346;margin:16px 0'>
   <strong>Ödeme ve Teslimat:</strong> Sipariş onayı üzerine %50 peşin, teslimatta kalan %50. Üretim süresi 15-20 iş günü.
 </div>
-<div class='sa'><div class='sb'>Hazırlayan — OZZO Alüminyum</div><div class='sb'>Müşteri Onayı</div></div>
-<div class='ft'>OZZO Alüminyum · Bu teklif ${date} tarihinde hazırlanmış olup 30 gün geçerlidir · ${quoteNo}</div>
+<div class='sa'><div class='sb'>Hazırlayan — AluSight</div><div class='sb'>Müşteri Onayı</div></div>
+<div class='ft'>AluSight · Bu teklif ${date} tarihinde hazırlanmış olup 30 gün geçerlidir · ${quoteNo}</div>
 </body></html>`
     const blob = new Blob([html], { type: 'text/html' })
     const url = URL.createObjectURL(blob)
-    const a = document.createElement('a'); a.href = url; a.download = `OZZO-Teklif-${quoteNo}.html`; a.click()
+    const a = document.createElement('a'); a.href = url; a.download = `alusight-Teklif-${quoteNo}.html`; a.click()
     URL.revokeObjectURL(url)
   }
 
@@ -630,7 +630,7 @@ ${extraNotes ? `<h2>Notlar ve Koşullar</h2><div class='nb'>${extraNotes}</div>`
                 {/* Teklif önizleme */}
                 <Card>
                   <div className="border-b border-white/12 pb-4 mb-4">
-                    <div className="text-green-400 font-bold text-base">OZZO Alüminyum — Fiyat Teklifi</div>
+                    <div className="text-green-400 font-bold text-base">AluSight — Fiyat Teklifi</div>
                     <div className="text-white/40 text-xs mt-0.5">{new Date().toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'})}</div>
                     {clientName&&<div className="text-white/65 text-xs mt-0.5">Müşteri: {clientName}</div>}
                   </div>

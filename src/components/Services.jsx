@@ -128,7 +128,7 @@ export default function Services() {
   }, [])
 
   return (
-    <section id="hizmetler" className="py-28 bg-ozzo-900 relative overflow-hidden" ref={containerRef}>
+    <section id="hizmetler" className="py-28 bg-alusight-900 relative overflow-hidden" ref={containerRef}>
 
       {/* Subtle top border glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-gold-500/40 to-transparent" />
@@ -185,7 +185,7 @@ export default function Services() {
                 {s.tags.map((t) => (
                   <span
                     key={t}
-                    className="text-xs text-white/40 border border-ozzo-400/50 px-2.5 py-1 group-hover:border-gold-500/30 group-hover:text-white/60 transition-all duration-300"
+                    className="text-xs text-white/40 border border-alusight-400/50 px-2.5 py-1 group-hover:border-gold-500/30 group-hover:text-white/60 transition-all duration-300"
                   >
                     {t}
                   </span>

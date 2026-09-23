@@ -44,7 +44,7 @@ const PLANS = [
     ],
     cta: 'Abone Ol',
     ctaType: 'gold',
-    whatsapp: 'Merhaba, OZZO Hesaplamalar paketine abone olmak istiyorum (490 TL/ay).',
+    whatsapp: 'Merhaba, AluSight Hesaplamalar paketine abone olmak istiyorum (490 TL/ay).',
   },
   {
     id: 'pro',
@@ -67,7 +67,7 @@ const PLANS = [
     ],
     cta: 'Abone Ol',
     ctaType: 'gold-strong',
-    whatsapp: 'Merhaba, OZZO Pro paketine abone olmak istiyorum (1.490 TL/ay).',
+    whatsapp: 'Merhaba, AluSight Pro paketine abone olmak istiyorum (1.490 TL/ay).',
   },
 ]
 
@@ -242,7 +242,7 @@ export default function PricingPage() {
             </div>
           </div>
           <button
-            onClick={() => window.open('https://wa.me/905358610404?text=' + encodeURIComponent('Merhaba, OZZO platform planları hakkında bilgi almak istiyorum.'), '_blank')}
+            onClick={() => window.open('https://wa.me/905358610404?text=' + encodeURIComponent('Merhaba, AluSight platform planları hakkında bilgi almak istiyorum.'), '_blank')}
             style={{
               marginLeft: 'auto', background: '#25D366', border: 'none', borderRadius: 8,
               padding: '10px 20px', color: '#fff', fontWeight: 700, fontSize: 12,

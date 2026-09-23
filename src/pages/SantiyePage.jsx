@@ -14,7 +14,7 @@ const ISSUE_TYPES = [
   'Vidalar Eksik', 'Drenaj Tıkalı', 'Yüzey Hasarı', 'Diğer',
 ]
 
-const STORAGE_KEY = 'ozzo_santiyeler'
+const STORAGE_KEY = 'AluSight_santiyeler'
 const load = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]') } catch { return [] } }
 const save = (d) => localStorage.setItem(STORAGE_KEY, JSON.stringify(d))
 const newVisit = () => ({ id: Date.now(), date: new Date().toISOString().slice(0, 10), notes: '', issues: [], photos: [], reportRef: '' })
@@ -323,14 +323,14 @@ export default function SantiyePage() {
                         {!aiActions[visit.id] && !aiLoading[visit.id] && (
                           <button onClick={() => getAiActions(visit.id, visit.notes)}
                             className="text-xs bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/20 text-gold-400 px-3 py-1.5 rounded-lg transition-all">
-                            OZZO Aksiyon Listesi
+                            AluSight Aksiyon Listesi
                           </button>
                         )}
-                        {aiLoading[visit.id] && <p className="text-xs text-gold-400 animate-pulse mt-1">OZZO analiz ediyor...</p>}
+                        {aiLoading[visit.id] && <p className="text-xs text-gold-400 animate-pulse mt-1">AluSight analiz ediyor...</p>}
                         {aiActions[visit.id] && (
                           <div className="bg-gold-500/5 border border-gold-500/20 rounded-lg p-3 mt-2">
                             <div className="flex justify-between items-center mb-1">
-                              <p className="text-xs text-gold-400 font-semibold">OZZO Aksiyon Listesi</p>
+                              <p className="text-xs text-gold-400 font-semibold">AluSight Aksiyon Listesi</p>
                               <button onClick={() => setAiActions(prev=>({...prev,[visit.id]:null}))} className="text-xs text-white/30 hover:text-white/60">×</button>
                             </div>
                             <pre className="text-xs text-white/70 whitespace-pre-wrap font-sans leading-relaxed">{aiActions[visit.id]}</pre>

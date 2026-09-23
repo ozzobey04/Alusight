@@ -305,7 +305,7 @@ export default function FlixoPage(){
     }
     const fragment = printFlixoPDF({ profile, glazing, r, Tin, Tout, RHin, climate, W, H, insights: ins, returnHtml: true }) || ''
 
-    /* Antet modunda OZZO dark header'ı gizle, footer'ı minimal yap */
+    /* Antet modunda AluSight dark header'ı gizle, footer'ı minimal yap */
     const antetCss = raporProfil?.antet
       ? `.header { display:none !important; } .footer { display:none !important; } .body { padding-top: 8px !important; }`
       : ''
@@ -497,7 +497,7 @@ export default function FlixoPage(){
               {['results','psi','cross','ai','report'].map(t=>(
                 <button key={t} onClick={()=>setTab(t)}
                   className={`px-4 py-2 text-xs font-display tracking-wide border rounded-lg transition-all font-medium ${tab===t?'border-gold-400 bg-gold-500/20 text-gold-300':'border-white/20 text-white/55 hover:text-white hover:bg-white/5'}`}>
-                  {{results:'Sonuçlar',psi:'ψ Değerleri',cross:'Kesit',ai:'OZZO Analiz',report:'Rapor'}[t]}
+                  {{results:'Sonuçlar',psi:'ψ Değerleri',cross:'Kesit',ai:'AluSight Analiz',report:'Rapor'}[t]}
                 </button>
               ))}
             </div>
@@ -606,7 +606,7 @@ export default function FlixoPage(){
               <div className="max-w-3xl mx-auto space-y-6">
                 {/* Analiz kartlari */}
                 <div className="space-y-3">
-                  <p className="text-center text-white/55 text-xs mb-4">OZZO analiz — {profile.name} + {glazing.name}</p>
+                  <p className="text-center text-white/55 text-xs mb-4">AluSight analiz — {profile.name} + {glazing.name}</p>
                   {ins.map((i,idx)=>(
                     <div key={idx} className={`flex gap-4 p-4 rounded-xl border ${
                       i.t==='error'?'bg-red-500/10 border-red-500/30':
@@ -713,9 +713,9 @@ export default function FlixoPage(){
                   })()}
                 </div>
 
-                {/* OZZO Profil Değerlendirmesi — kural tabanlı, API bağımsız */}
+                {/* AluSight Profil Değerlendirmesi — kural tabanlı, API bağımsız */}
                 <div className="bg-white/5 rounded-xl p-5 border border-white/10">
-                  <h3 className="text-gold-400 font-bold text-sm mb-3">OZZO Profil Değerlendirmesi</h3>
+                  <h3 className="text-gold-400 font-bold text-sm mb-3">AluSight Profil Değerlendirmesi</h3>
                   {!aiSuggestion&&!aiLoading&&(
                     <button onClick={()=>{
                       setAiLoading(true)
@@ -756,13 +756,13 @@ export default function FlixoPage(){
                       },600)
                     }}
                     className="w-full bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 text-gold-400 text-sm font-semibold py-3 rounded-lg transition-all">
-                      OZZO Değerlendirmesi Al
+                      AluSight Değerlendirmesi Al
                     </button>
                   )}
                   {aiLoading&&(
                     <div className="text-center py-4">
                       <div className="w-6 h-6 border-2 border-gold-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"/>
-                      <p className="text-xs text-gold-400">OZZO analiz ediyor...</p>
+                      <p className="text-xs text-gold-400">AluSight analiz ediyor...</p>
                     </div>
                   )}
                   {aiSuggestion&&!aiLoading&&(
@@ -779,7 +779,7 @@ export default function FlixoPage(){
               <div className="max-w-2xl mx-auto">
                 <Card className="space-y-5">
                   <div className="border-b border-white/15 pb-4">
-                    <div className="text-gold-400 font-bold text-base">OZZO Alüminyum — Termal Köprü Raporu</div>
+                    <div className="text-gold-400 font-bold text-base">AluSight — Termal Köprü Raporu</div>
                     <div className="text-white/45 text-xs mt-1">Flixo Modülü · {new Date().toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'})}</div>
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-xs font-mono">

@@ -1,5 +1,5 @@
 /*
- * OZZO ALÜMİNYUM — Genel Bilgi Tabanı
+ * AluSight — Genel Bilgi Tabanı
  * Kaynaklar:
  *   1. Fuat Kulaberoğlu — "Cephelerde En Sık Yapılan Uygulama Hataları"
  *      Fatih Sultan Mehmet Vakıf Üniversitesi, Alüminyum Test Eğitim ve Araştırma Merkezi

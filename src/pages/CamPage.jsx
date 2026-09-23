@@ -4,7 +4,7 @@ import RaporIndir from '../components/RaporIndir'
 import { buildReportHeader, buildReportFooter } from '../utils/raporProfili'
 
 /* ════════════════════════════════════════════════════════
-   OZZO CAM HESAPLAYICI
+   AluSight CAM HESAPLAYICI
    Standartlar: EN ISO 10077-1, EN 673, EN 410, EN ISO 717-1
    TS 825 İklim Bölgesi Uyum Kontrolü
    ════════════════════════════════════════════════════════ */
@@ -330,11 +330,11 @@ ${buildReportFooter(profil, rNo)}
                 📄 Tam Rapor İndir (Tüm Avrupa Standartları)
               </RaporIndir>
               <div className="flex gap-2">
-                <button onClick={() => { sessionStorage.setItem('ozzo_cam_transfer', JSON.stringify({ Uw: calc.Uw, glass, frame, width, height, city: city.name })); navigate('/flixo') }}
+                <button onClick={() => { sessionStorage.setItem('AluSight_cam_transfer', JSON.stringify({ Uw: calc.Uw, glass, frame, width, height, city: city.name })); navigate('/flixo') }}
                   className="flex-1 flex items-center justify-center gap-1.5 bg-[#070d1f] hover:bg-[#1a2444] border border-blue-500/20 text-blue-300 text-xs font-semibold py-2.5 rounded-xl transition-all">
                   🌡 Flixo'ya Aktar
                 </button>
-                <button onClick={() => { sessionStorage.setItem('ozzo_cam_transfer', JSON.stringify({ Uw: calc.Uw, glass, width, height, annualLoss: calc.annualHeatLoss })); navigate('/carbon') }}
+                <button onClick={() => { sessionStorage.setItem('AluSight_cam_transfer', JSON.stringify({ Uw: calc.Uw, glass, width, height, annualLoss: calc.annualHeatLoss })); navigate('/carbon') }}
                   className="flex-1 flex items-center justify-center gap-1.5 bg-[#070d1f] hover:bg-[#1a2444] border border-green-500/20 text-green-300 text-xs font-semibold py-2.5 rounded-xl transition-all">
                   🌿 Karbon'a Aktar
                 </button>

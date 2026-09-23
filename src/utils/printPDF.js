@@ -95,9 +95,9 @@ export function printFlixoPDF({ profile, glazing, r, Tin, Tout, RHin, climate, W
 
   const html = `
 <div class="header">
-  <h1>OZZO ALÜMİNYUM</h1>
+  <h1>AluSight</h1>
   <div class="sub">Isı Geçirgenlik Raporu — Flixo Termal Analiz Modülü</div>
-  <div class="meta">Rapor Tarihi: ${new Date().toLocaleDateString('tr-TR')} &nbsp;|&nbsp; Tel: 0535 861 04 04</div>
+  <div class="meta">Rapor Tarihi: ${new Date().toLocaleDateString('tr-TR')} &nbsp;|&nbsp; Tel: +90 535 861 0404</div>
 </div>
 <div class="body">
 
@@ -146,7 +146,7 @@ export function printFlixoPDF({ profile, glazing, r, Tin, Tout, RHin, climate, W
   </div>
 </div>
 <div class="footer">
-  <span>OZZO Alüminyum | www.ozzoaluminyum.com | Tel: 0535 861 04 04</span>
+  <span>AluSight | www.alusight.com | Tel: +90 535 861 0404</span>
   <span>${new Date().toLocaleDateString('tr-TR')}</span>
 </div>`
 
@@ -174,9 +174,9 @@ export function printPvcPDF({ items, clientName, projectName, notes, totals, ret
 
   const html = `
 <div class="header">
-  <h1>OZZO ALÜMİNYUM</h1>
+  <h1>AluSight</h1>
   <div class="sub">PVC Sistem Fiyat Teklifi</div>
-  <div class="meta">Teklif Tarihi: ${new Date().toLocaleDateString('tr-TR')} &nbsp;|&nbsp; Tel: 0535 861 04 04</div>
+  <div class="meta">Teklif Tarihi: ${new Date().toLocaleDateString('tr-TR')} &nbsp;|&nbsp; Tel: +90 535 861 0404</div>
 </div>
 <div class="body">
 
@@ -215,7 +215,7 @@ export function printPvcPDF({ items, clientName, projectName, notes, totals, ret
   </div>
 </div>
 <div class="footer">
-  <span>OZZO Alüminyum | www.ozzoaluminyum.com | Tel: 0535 861 04 04</span>
+  <span>AluSight | www.alusight.com | Tel: +90 535 861 0404</span>
   <span>${new Date().toLocaleDateString('tr-TR')}</span>
 </div>`
 
@@ -245,9 +245,9 @@ export function printCarbonPDF({ product, alType, totalM2, qty, result, notes, r
 
   const html = `
 <div class="header">
-  <h1>OZZO ALÜMİNYUM</h1>
+  <h1>AluSight</h1>
   <div class="sub">Karbon Ayak İzi Raporu — Alüminyum Doğrama / Cephe</div>
-  <div class="meta">Rapor Tarihi: ${new Date().toLocaleDateString('tr-TR')} &nbsp;|&nbsp; Tel: 0535 861 04 04</div>
+  <div class="meta">Rapor Tarihi: ${new Date().toLocaleDateString('tr-TR')} &nbsp;|&nbsp; Tel: +90 535 861 0404</div>
 </div>
 <div class="body">
 
@@ -340,7 +340,7 @@ export function printCarbonPDF({ product, alType, totalM2, qty, result, notes, r
   </div>
 </div>
 <div class="footer">
-  <span>OZZO Alüminyum | www.ozzoaluminyum.com | Tel: 0535 861 04 04</span>
+  <span>AluSight | www.alusight.com | Tel: +90 535 861 0404</span>
   <span>${new Date().toLocaleDateString('tr-TR')}</span>
 </div>`
 

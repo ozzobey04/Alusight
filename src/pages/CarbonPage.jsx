@@ -684,7 +684,7 @@ export default function CarbonPage() {
               <div className="max-w-2xl mx-auto">
                 <Card className="space-y-4">
                   <div className="border-b border-white/15 pb-4">
-                    <div className="text-emerald-400 font-bold text-base">OZZO Alüminyum — Karbon Ayak İzi Raporu</div>
+                    <div className="text-emerald-400 font-bold text-base">AluSight — Karbon Ayak İzi Raporu</div>
                     <div className="text-white/40 text-xs mt-1">EN 15978 · {new Date().toLocaleDateString('tr-TR',{year:'numeric',month:'long',day:'numeric'})}</div>
                   </div>
                   <div className="grid grid-cols-2 gap-3 text-xs font-mono">

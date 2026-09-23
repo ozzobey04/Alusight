@@ -19,7 +19,7 @@ export default function RaporIndir({ buildHtml, label, className = '', children 
 
   function handleClick() {
     const tercih = getSablonTercih()
-    if (tercih === 'ozzo') {
+    if (tercih === 'AluSight') {
       indir(defaultProfil())
     } else if (tercih === 'musteri') {
       indir(loadProfil())
@@ -54,7 +54,7 @@ export default function RaporIndir({ buildHtml, label, className = '', children 
 
 /* ─── Template Seçim Modal ─── */
 function TemplateSecimModal({ onConfirm, onClose }) {
-  const [secim,  setSecim]  = useState('ozzo')
+  const [secim,  setSecim]  = useState('AluSight')
   const [daima,  setDaima]  = useState(false)
   const [tab,    setTab]    = useState('secim')  // 'secim' | 'doldur'
   const [profil, setProfil] = useState(loadProfil)
@@ -69,7 +69,7 @@ function TemplateSecimModal({ onConfirm, onClose }) {
       saveProfil({ ...profil, tarih: new Date().toLocaleDateString('tr-TR') })
       onConfirm(profil, daima, 'musteri')
     } else {
-      onConfirm(defaultProfil(), daima, 'ozzo')
+      onConfirm(defaultProfil(), daima, 'AluSight')
     }
   }
 
@@ -102,15 +102,15 @@ function TemplateSecimModal({ onConfirm, onClose }) {
             {/* Şablon kartları */}
             <div className="grid grid-cols-2 gap-3">
 
-              {/* OZZO Şablonu */}
-              <button onClick={() => setSecim('ozzo')}
-                className={`relative flex flex-col items-center gap-3 p-5 rounded-2xl border-2 transition-all text-left ${secim === 'ozzo' ? 'border-gold-500 bg-gold-500/10' : 'border-white/10 hover:border-white/30'}`}>
-                {secim === 'ozzo' && <span className="absolute top-2.5 right-2.5 w-4 h-4 rounded-full bg-gold-500 flex items-center justify-center text-[9px] font-black text-black">✓</span>}
+              {/* AluSight Şablonu */}
+              <button onClick={() => setSecim('AluSight')}
+                className={`relative flex flex-col items-center gap-3 p-5 rounded-2xl border-2 transition-all text-left ${secim === 'AluSight' ? 'border-gold-500 bg-gold-500/10' : 'border-white/10 hover:border-white/30'}`}>
+                {secim === 'AluSight' && <span className="absolute top-2.5 right-2.5 w-4 h-4 rounded-full bg-gold-500 flex items-center justify-center text-[9px] font-black text-black">✓</span>}
                 <div className="w-16 h-10 bg-white rounded-lg flex items-center justify-center shadow">
-                  <span className="font-black text-lg tracking-wider text-gray-900">OZZO</span>
+                  <span className="font-black text-lg tracking-wider text-gray-900">AluSight</span>
                 </div>
                 <div>
-                  <p className="font-bold text-sm text-white">OZZO Şablonu</p>
+                  <p className="font-bold text-sm text-white">AluSight Şablonu</p>
                   <p className="text-[11px] text-gray-400 mt-0.5">Varsayılan altın çizgili şablon</p>
                 </div>
               </button>

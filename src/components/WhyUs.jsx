@@ -95,19 +95,19 @@ export default function WhyUs() {
   }, [])
 
   return (
-    <section id="neden-biz" className="py-28 bg-ozzo-800 relative overflow-hidden" ref={containerRef}>
+    <section id="neden-biz" className="py-28 bg-alusight-800 relative overflow-hidden" ref={containerRef}>
 
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
 
       {/* Background pattern */}
       <div className="absolute inset-0 hero-grid-bg opacity-20" />
-      <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-ozzo-900/50 to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-alusight-900/50 to-transparent pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
         {/* Header */}
         <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
           <div className="anim-init-left">
-            <div className="section-subtitle mb-4">Neden OZZO?</div>
+            <div className="section-subtitle mb-4">Neden AluSight?</div>
             <h2 className="font-display text-4xl md:text-5xl font-800 text-white leading-tight mb-6">
               Fark Yaratan
               <br />
@@ -120,7 +120,7 @@ export default function WhyUs() {
             </p>
           </div>
           <div className="anim-init-right flex flex-col gap-4 pt-8">
-            <div className="flex items-center gap-4 p-5 bg-ozzo-700/50 border border-ozzo-500/30">
+            <div className="flex items-center gap-4 p-5 bg-alusight-700/50 border border-alusight-500/30">
               <div className="w-12 h-12 bg-gold-500/10 border border-gold-500/20 flex items-center justify-center flex-shrink-0">
                 <svg className="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
@@ -131,7 +131,7 @@ export default function WhyUs() {
                 <div className="text-white/40 text-xs mt-0.5">Uluslararası kalite yönetim sistemi sertifikası</div>
               </div>
             </div>
-            <div className="flex items-center gap-4 p-5 bg-ozzo-700/50 border border-ozzo-500/30">
+            <div className="flex items-center gap-4 p-5 bg-alusight-700/50 border border-alusight-500/30">
               <div className="w-12 h-12 bg-gold-500/10 border border-gold-500/20 flex items-center justify-center flex-shrink-0">
                 <svg className="w-6 h-6 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" />
@@ -150,7 +150,7 @@ export default function WhyUs() {
           {features.map((f, i) => (
             <div
               key={f.title}
-              className={`anim-init anim-delay-${(i % 3) + 1} group flex gap-5 p-6 bg-ozzo-700/40 border border-ozzo-500/30 hover:border-gold-500/30 hover:bg-ozzo-700/60 transition-all duration-300`}
+              className={`anim-init anim-delay-${(i % 3) + 1} group flex gap-5 p-6 bg-alusight-700/40 border border-alusight-500/30 hover:border-gold-500/30 hover:bg-alusight-700/60 transition-all duration-300`}
             >
               <div className="text-gold-500/70 group-hover:text-gold-500 transition-colors duration-300 flex-shrink-0 mt-0.5">
                 {f.icon}

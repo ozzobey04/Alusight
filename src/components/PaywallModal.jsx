@@ -72,7 +72,7 @@ export default function PaywallModal({ type, onClose }) {
     activatePlan(pkg.id)
     window.open(
       `https://wa.me/905358610404?text=${encodeURIComponent(
-        `Merhaba, OZZO ${pkg.name} paketine abone olmak istiyorum (${pkg.price} TL/ay).`
+        `Merhaba, AluSight ${pkg.name} paketine abone olmak istiyorum (${pkg.price} TL/ay).`
       )}`,
       '_blank'
     )

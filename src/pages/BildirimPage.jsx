@@ -22,7 +22,7 @@ function FirebaseSetupGuide({ onSave, onClose }) {
     setTesting(true); setTestResult(null)
     try {
       const clean = url.replace(/\/$/, '')
-      const res = await fetch(`${clean}/ozzo_test.json`, {
+      const res = await fetch(`${clean}/AluSight_test.json`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ test: true, ts: Date.now() }),
@@ -68,7 +68,7 @@ function FirebaseSetupGuide({ onSave, onClose }) {
               <h3 className="font-semibold text-white">1. Firebase Hesabı Oluştur</h3>
               <div className="bg-white/5 rounded-xl p-4 space-y-3 text-sm text-gray-300">
                 <p>📌 <a href="https://console.firebase.google.com" target="_blank" rel="noreferrer" className="text-gold-400 hover:underline">console.firebase.google.com</a> adresine git (Google hesabıyla)</p>
-                <p>📌 <strong className="text-white">"Add project"</strong> → Proje adı: <code className="bg-black/40 px-2 py-0.5 rounded text-gold-300">ozzo-bildirim</code></p>
+                <p>📌 <strong className="text-white">"Add project"</strong> → Proje adı: <code className="bg-black/40 px-2 py-0.5 rounded text-gold-300">alusight-bildirim</code></p>
                 <p>📌 Google Analytics: <strong className="text-white">Devre dışı</strong> bırak → <strong className="text-white">Create project</strong></p>
               </div>
               <button onClick={() => setStep(2)} className="w-full bg-gold-500 hover:bg-gold-400 text-black font-bold py-3 rounded-xl text-sm">Sonraki →</button>
@@ -101,7 +101,7 @@ function FirebaseSetupGuide({ onSave, onClose }) {
               <input
                 value={url}
                 onChange={e => setUrl(e.target.value)}
-                placeholder="https://ozzo-bildirim-default-rtdb.europe-west1.firebasedatabase.app"
+                placeholder="https://alusight-bildirim-default-rtdb.europe-west1.firebasedatabase.app"
                 className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white font-mono outline-none focus:border-gold-500/40"
               />
               <div className="flex gap-3">
@@ -128,11 +128,11 @@ function FirebaseSetupGuide({ onSave, onClose }) {
                 <p>📌 Şu kuralı yapıştır (30 gün test modundan sonra bu gerekli):</p>
                 <pre className="bg-black/40 rounded-lg px-4 py-3 text-xs text-green-300 overflow-x-auto">{`{
   "rules": {
-    "ozzo_notifications": {
+    "AluSight_notifications": {
       ".read": true,
       ".write": true
     },
-    "ozzo_test": {
+    "AluSight_test": {
       ".read": true,
       ".write": true
     }
@@ -160,7 +160,7 @@ export default function BildirimPage() {
   const [showSettings, setShowSettings]   = useState(false)
   const [pushPerm, setPushPerm]           = useState(Notification?.permission || 'default')
   const [soundOn, setSoundOn]             = useState(getSoundEnabled())
-  const [userName, setUserName]           = useState(() => localStorage.getItem('ozzo_username') || '')
+  const [userName, setUserName]           = useState(() => localStorage.getItem('AluSight_username') || '')
   const [userNameInput, setUserNameInput] = useState('')
   const [fixModal, setFixModal]           = useState(null)
   const [fixerName, setFixerName]         = useState('')
@@ -224,13 +224,13 @@ export default function BildirimPage() {
         <input
           value={userNameInput}
           onChange={e => setUserNameInput(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && userNameInput.trim() && (localStorage.setItem('ozzo_username', userNameInput.trim()), setUserName(userNameInput.trim()))}
+          onKeyDown={e => e.key === 'Enter' && userNameInput.trim() && (localStorage.setItem('AluSight_username', userNameInput.trim()), setUserName(userNameInput.trim()))}
           placeholder="Adın (örn: Mehmet Usta)"
           className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm text-white mb-4 outline-none focus:border-gold-500/40"
           autoFocus
         />
         <button
-          onClick={() => { if (userNameInput.trim()) { localStorage.setItem('ozzo_username', userNameInput.trim()); setUserName(userNameInput.trim()) } }}
+          onClick={() => { if (userNameInput.trim()) { localStorage.setItem('AluSight_username', userNameInput.trim()); setUserName(userNameInput.trim()) } }}
           className="w-full bg-gold-500 hover:bg-gold-400 text-black font-bold py-3 rounded-xl text-sm">
           Giriş
         </button>
@@ -277,7 +277,7 @@ export default function BildirimPage() {
               <div className="flex gap-2">
                 <input value={userNameInput || userName} onChange={e => setUserNameInput(e.target.value)}
                   className="flex-1 bg-black/40 border border-white/10 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-gold-500/40" />
-                <button onClick={() => { const n = (userNameInput || userName).trim(); if (n) { localStorage.setItem('ozzo_username', n); setUserName(n); setUserNameInput('') } }}
+                <button onClick={() => { const n = (userNameInput || userName).trim(); if (n) { localStorage.setItem('AluSight_username', n); setUserName(n); setUserNameInput('') } }}
                   className="bg-gold-500 text-black font-bold px-4 rounded-xl text-xs">Kaydet</button>
               </div>
             </div>

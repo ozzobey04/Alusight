@@ -24,6 +24,11 @@ import RuzgarPage from './pages/RuzgarPage'
 import PricingPage from './pages/PricingPage'
 import MusteriPortalPage from './pages/MusteriPortalPage'
 import BildirimPage from './pages/BildirimPage'
+import HakkimizdaPage from './pages/HakkimizdaPage'
+import SssPage from './pages/SssPage'
+import GizlilikPolitikasiPage from './pages/GizlilikPolitikasiPage'
+import KullanimKosullariPage from './pages/KullanimKosullariPage'
+import KvkkPage from './pages/KvkkPage'
 
 const isNative = typeof window !== 'undefined' && !!window?.Capacitor?.isNativePlatform?.()
 
@@ -55,7 +60,7 @@ class ErrorBoundary extends Component {
 
 function HomePage() {
   return (
-    <div className="bg-ozzo-900 text-white overflow-x-hidden">
+    <div className="bg-alusight-900 text-white overflow-x-hidden">
       <AnimatedBg />
       <div className="relative" style={{ zIndex: 2 }}>
         <Navbar />
@@ -88,7 +93,7 @@ function HomePage() {
 
 function CalcLayout({ children }) {
   return (
-    <div className="bg-ozzo-900 text-white min-h-screen overflow-x-hidden">
+    <div className="bg-alusight-900 text-white min-h-screen overflow-x-hidden">
       <AnimatedBg />
       <div className="relative" style={{ zIndex: 2 }}>
         <Navbar calcMode />
@@ -128,6 +133,11 @@ export default function App() {
         <Route path="/fiyatlar"    element={<CalcLayout><PricingPage /></CalcLayout>} />
         <Route path="/musteri"     element={<MusteriPortalPage />} />
         <Route path="/bildirim"    element={<CalcLayout><BildirimPage /></CalcLayout>} />
+        <Route path="/hakkimizda"  element={<CalcLayout><HakkimizdaPage /></CalcLayout>} />
+        <Route path="/sss"         element={<CalcLayout><SssPage /></CalcLayout>} />
+        <Route path="/gizlilik"    element={<CalcLayout><GizlilikPolitikasiPage /></CalcLayout>} />
+        <Route path="/kullanim-kosullari" element={<CalcLayout><KullanimKosullariPage /></CalcLayout>} />
+        <Route path="/kvkk"        element={<CalcLayout><KvkkPage /></CalcLayout>} />
       </Routes>
     </ErrorBoundary>
   )

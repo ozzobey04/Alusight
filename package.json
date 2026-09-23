@@ -1,5 +1,5 @@
 {
-  "name": "ozzo-aluminyum",
+  "name": "alusight",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -21,6 +21,8 @@
     "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
+    "@babel/generator": "^8.0.0",
+    "@babel/parser": "^8.0.4",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.17",
     "postcss": "^8.4.33",

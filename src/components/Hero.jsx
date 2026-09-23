@@ -18,7 +18,7 @@ export default function Hero() {
     <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
 
       {/* Deep dark background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-ozzo-950 via-ozzo-900 to-[#0d0d20]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-alusight-950 via-alusight-900 to-[#0d0d20]" />
 
       {/* Architectural grid overlay */}
       <div className="absolute inset-0 hero-grid-bg opacity-100" />
@@ -51,9 +51,9 @@ export default function Hero() {
       {/* Main content */}
       <div className="relative z-10 text-center max-w-5xl mx-auto px-6 flex flex-col items-center">
 
-        {/* Large hero logo */}
-        <div className="animate-float mb-10">
-          <Logo className="w-72 md:w-96 lg:w-[460px]" tagline={true} />
+        {/* Large hero logo — sadece göz, wordmark yok */}
+        <div className="animate-float mt-24 md:mt-20 mb-8">
+          <Logo className="w-40 md:w-48 lg:w-56" wordmark={false} />
         </div>
 
         {/* Divider with accent */}
@@ -103,7 +103,7 @@ export default function Hero() {
             { num: '8+',   label: 'Yıl Deneyim' },
             { num: '100+', label: 'Tamamlanan Proje' },
             { num: '100+', label: 'Mutlu Müşteri' },
-            { num: '1000K+', label: 'm² Uygulama' },
+            { num: '20K+', label: 'm² Uygulama' },
           ].map((s) => (
             <div key={s.label} className="text-center">
               <div className="font-display text-2xl font-800 text-gradient-gold">{s.num}</div>

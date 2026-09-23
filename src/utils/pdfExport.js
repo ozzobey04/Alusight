@@ -22,10 +22,10 @@ export function preloadPdfMake() {
   getPdfMake().catch(() => {})
 }
 
-const BRAND = 'OZZO Alüminyum'
-const PHONE = '+90 535 861 04 04'
-const EMAIL = 'info@ozzoaluminyum.com'
-const WEB   = 'www.ozzoaluminyum.com'
+const BRAND = 'AluSight'
+const PHONE = '+90 535 861 0404'
+const EMAIL = 'info@alusight.com'
+const WEB   = 'www.alusight.com'
 
 const GOLD  = '#b48c3c'
 const DARK  = '#141e32'
@@ -264,7 +264,7 @@ function buildFlixoDocDef({ profile, glazing, r, Tin, Tout, RHin, climate, W, H,
 export async function exportFlixoPDF(params) {
   const pm = await getPdfMake()
   const docDef = buildFlixoDocDef(params)
-  pm.createPdf(docDef).download(`OZZO_Flixo_Rapor_${Date.now()}.pdf`)
+  pm.createPdf(docDef).download(`AluSight_Flixo_Rapor_${Date.now()}.pdf`)
 }
 
 export async function previewFlixoPDF(params, onDataUrl) {
@@ -279,7 +279,7 @@ export async function previewFlixoPDF(params, onDataUrl) {
 export async function exportPvcPDF(params) {
   const pm = await getPdfMake()
   const docDef = buildPvcDocDef(params)
-  pm.createPdf(docDef).download(`OZZO_PVC_Teklif_${params.clientName ? params.clientName.replace(/\s/g, '_') : Date.now()}.pdf`)
+  pm.createPdf(docDef).download(`AluSight_PVC_Teklif_${params.clientName ? params.clientName.replace(/\s/g, '_') : Date.now()}.pdf`)
 }
 
 export async function previewPvcPDF(params, onDataUrl) {
@@ -419,7 +419,7 @@ function buildPvcDocDef({ product, profileSys, glass, hardware, color, r, W, H, 
         margin: [0, 4, 0, 8],
       },
 
-      { text: '* Bu teklif hesaplama araçları ile oluşturulmuştur. Kesin fiyat için OZZO Alüminyum ile iletişime geçiniz.', style: 'noteText' },
+      { text: '* Bu teklif hesaplama araçları ile oluşturulmuştur. Kesin fiyat için AluSight ile iletişime geçiniz.', style: 'noteText' },
       { text: '* Fiyatlara montaj dahil değildir. KDV ayrıca hesaplanmıştır.', style: 'noteText', margin: [0, 3, 0, 0] },
     ],
   }
@@ -669,7 +669,7 @@ function buildCarbonDocDef({ product, alType, glass, surface, city, energySource
 export async function exportCarbonPDF(params) {
   const pdfMake = await getPdfMake()
   const docDef  = buildCarbonDocDef(params)
-  pdfMake.createPdf(docDef).download(`OZZO_Karbon_Raporu_${Date.now()}.pdf`)
+  pdfMake.createPdf(docDef).download(`AluSight_Karbon_Raporu_${Date.now()}.pdf`)
 }
 
 export async function previewCarbonPDF(params, callback) {
@@ -691,7 +691,7 @@ function buildOneriDocDef(r) {
   const priorityColor = { Acil: RED, Yüksek: '#ea580c', Orta: AMBER, Düşük: GREEN, Bilgi: '#2563eb' }
 
   const contentArr = [
-    ...headerContent('Alüminyum Durum Analizi Raporu', `OZZO Alüminyum · ${r.date}`),
+    ...headerContent('Alüminyum Durum Analizi Raporu', `AluSight · ${r.date}`),
 
     sectionHeader('Sistem Bilgileri'),
     {
@@ -794,7 +794,7 @@ function buildOneriDocDef(r) {
       { image: r.imageData, width: 400, alignment: 'center', margin: [0, 0, 0, 10] },
     ] : []),
 
-    { text: '* Bu rapor OZZO Alüminyum Durum Analizi aracı ile oluşturulmuştur. Kesin teknik değerlendirme için uzman incelemesi yapılmalıdır.', style: 'noteText' },
+    { text: '* Bu rapor AluSight Durum Analizi aracı ile oluşturulmuştur. Kesin teknik değerlendirme için uzman incelemesi yapılmalıdır.', style: 'noteText' },
     { text: '* Kalan ömür ve maliyet tahminleri sistemin tipi, yüzey kaplaması, konum ve bakım geçmişine göre hesaplanmıştır.', style: 'noteText', margin: [0, 3, 0, 0] },
 
     ...(r.aiResult?.insulation_report ? [
@@ -886,7 +886,7 @@ function buildOneriDocDef(r) {
 
 export async function exportOneriPDF(report) {
   const pdfMake = await getPdfMake()
-  pdfMake.createPdf(buildOneriDocDef(report)).download(`OZZO_Durum_Analizi_${Date.now()}.pdf`)
+  pdfMake.createPdf(buildOneriDocDef(report)).download(`AluSight_Durum_Analizi_${Date.now()}.pdf`)
 }
 
 export async function previewOneriPDF(report, callback) {

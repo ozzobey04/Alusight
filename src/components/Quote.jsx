@@ -13,13 +13,13 @@ const serviceOptions = [
 const AI_TIPS = {
   default: {
     icon: '◈',
-    title: 'OZZO Öneri',
-    text: 'Formu doldururken OZZO asistanımız size en uygun profil serisini önerecektir.',
+    title: 'AluSight Öneri',
+    text: 'Formu doldururken AluSight asistanımız size en uygun profil serisini önerecektir.',
   },
   'Alüminyum Doğrama (Pencere & Kapı)': {
     icon: '◉',
     title: 'Yalıtımlı Seri Önerisi',
-    text: 'Pencere & kapı projeleri için OZZO Yalıtımlı Seri önerilir. PA66 termal köprü kesici ile A sınıfı enerji verimliliği sağlar.',
+    text: 'Pencere & kapı projeleri için AluSight Yalıtımlı Seri önerilir. PA66 termal köprü kesici ile A sınıfı enerji verimliliği sağlar.',
     tag: 'Yalıtımlı Seri',
   },
   'Giydirme Cephe / Curtain Wall': {
@@ -106,7 +106,7 @@ function AIPanel({ service }) {
             fontFamily: 'Montserrat,sans-serif', fontSize: 10, letterSpacing: 1.5,
             color: 'rgba(201,168,76,0.7)', textTransform: 'uppercase',
           }}>
-            OZZO · Akıllı Öneri
+            AluSight · Akıllı Öneri
           </div>
           <div style={{
             fontFamily: 'Montserrat,sans-serif', fontSize: 13, fontWeight: 600,
@@ -153,6 +153,7 @@ export default function Quote() {
     name: '', phone: '', email: '', city: '', service: '', area: '', message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [submittedContact, setSubmittedContact] = useState('')
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -175,20 +176,26 @@ export default function Quote() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    const contactCopy = form.email || form.phone || '—'
+    // TODO: Backend entegrasyonu buraya eklenebilir
+    // eslint-disable-next-line no-console
+    console.log('[Teklif Talebi]', form)
+    setSubmittedContact(contactCopy)
     setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 5000)
     setForm({ name: '', phone: '', email: '', city: '', service: '', area: '', message: '' })
   }
 
+  const handleReset = () => setSubmitted(false)
+
   return (
-    <section id="teklif" className="py-28 bg-ozzo-800 relative overflow-hidden" ref={containerRef}>
+    <section id="teklif" className="py-28 bg-alusight-800 relative overflow-hidden" ref={containerRef}>
       <style>{`
         @keyframes quoteScan { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
       `}</style>
 
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
       <div className="absolute inset-0 hero-grid-bg opacity-15" />
-      <div className="absolute left-0 top-0 bottom-0 w-1/2 bg-gradient-to-r from-ozzo-900/60 to-transparent pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-1/2 bg-gradient-to-r from-alusight-900/60 to-transparent pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
         <div className="grid lg:grid-cols-5 gap-14 items-start">
@@ -226,7 +233,7 @@ export default function Quote() {
                     </svg>
                   ),
                   label: 'E-posta',
-                  value: 'teklif@ozzoaluminyum.com',
+                  value: 'teklif@alusight.com',
                 },
                 {
                   icon: (
@@ -279,7 +286,7 @@ export default function Quote() {
               </div>
               <div>
                 <div style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 11, fontWeight: 600, color: '#c9a84c', letterSpacing: 0.5 }}>
-                  OZZO Destekli Form
+                  AluSight Destekli Form
                 </div>
                 <div style={{ fontFamily: 'Montserrat,sans-serif', fontSize: 10.5, color: 'rgba(200,220,240,0.5)', marginTop: 1 }}>
                   Seçiminize göre akıllı öneriler sunulur
@@ -291,17 +298,28 @@ export default function Quote() {
           {/* Right form */}
           <div className="lg:col-span-3 anim-init-right">
             {submitted ? (
-              <div className="h-full flex flex-col items-center justify-center p-16 bg-ozzo-700/50 border border-gold-500/30 text-center">
-                <div className="w-16 h-16 bg-gold-500/15 border border-gold-500/30 flex items-center justify-center mb-6">
-                  <svg className="w-8 h-8 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="h-full flex flex-col items-center justify-center p-10 lg:p-16 bg-alusight-700/50 border border-gold-500/30 text-center animate-fade-in">
+                <div className="w-20 h-20 bg-gold-500/15 border border-gold-500/30 rounded-full flex items-center justify-center mb-6">
+                  <svg className="w-10 h-10 text-gold-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h3 className="font-display text-2xl font-700 text-white mb-3">Talebiniz Alındı</h3>
-                <p className="text-white/50 font-300">En kısa sürede size ulaşacağız.</p>
+                <h3 className="font-display text-2xl md:text-3xl font-700 text-white mb-3">Talebiniz Alındı</h3>
+                <p className="text-white/50 font-300 max-w-md mb-2">
+                  Teşekkür ederiz. Talebiniz uzman ekibimize iletildi; en kısa sürede size dönüş yapacağız.
+                </p>
+                <p className="text-white/30 text-xs mb-8">
+                  Kopya: {submittedContact}
+                </p>
+                <button
+                  onClick={handleReset}
+                  className="px-6 py-3 rounded-xl border border-white/15 text-white/60 hover:text-white hover:bg-white/5 text-sm transition-all"
+                >
+                  Yeni Teklif Talebi
+                </button>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="bg-ozzo-700/30 border border-ozzo-500/30 p-8 lg:p-10">
+              <form onSubmit={handleSubmit} className="bg-alusight-700/30 border border-alusight-500/30 p-8 lg:p-10">
 
                 {/* AI Suggestion Panel */}
                 <AIPanel service={form.service} />
@@ -325,7 +343,7 @@ export default function Quote() {
                         onChange={handleChange}
                         placeholder={field.placeholder}
                         required={field.required}
-                        className="w-full bg-ozzo-900/60 border border-ozzo-400/40 focus:border-gold-500/60 text-white placeholder-white/20 text-sm px-4 py-3 outline-none transition-colors duration-200 font-300"
+                        className="w-full bg-alusight-900/60 border border-alusight-400/40 focus:border-gold-500/60 text-white placeholder-white/20 text-sm px-4 py-3 outline-none transition-colors duration-200 font-300"
                       />
                     </div>
                   ))}
@@ -339,11 +357,11 @@ export default function Quote() {
                       value={form.service}
                       onChange={handleChange}
                       required
-                      className="w-full bg-ozzo-900/60 border border-ozzo-400/40 focus:border-gold-500/60 text-white text-sm px-4 py-3 outline-none transition-colors duration-200 font-300 appearance-none cursor-pointer"
+                      className="w-full bg-alusight-900/60 border border-alusight-400/40 focus:border-gold-500/60 text-white text-sm px-4 py-3 outline-none transition-colors duration-200 font-300 appearance-none cursor-pointer"
                     >
-                      <option value="" className="bg-ozzo-900">Hizmet seçiniz...</option>
+                      <option value="" className="bg-alusight-900">Hizmet seçiniz...</option>
                       {serviceOptions.map((opt) => (
-                        <option key={opt} value={opt} className="bg-ozzo-900">{opt}</option>
+                        <option key={opt} value={opt} className="bg-alusight-900">{opt}</option>
                       ))}
                     </select>
                   </div>
@@ -359,7 +377,7 @@ export default function Quote() {
                     onChange={handleChange}
                     rows={4}
                     placeholder="Projeniz hakkında kısa bilgi veriniz (konum, bina tipi, özel gereksinimler...)"
-                    className="w-full bg-ozzo-900/60 border border-ozzo-400/40 focus:border-gold-500/60 text-white placeholder-white/20 text-sm px-4 py-3 outline-none transition-colors duration-200 font-300 resize-none"
+                    className="w-full bg-alusight-900/60 border border-alusight-400/40 focus:border-gold-500/60 text-white placeholder-white/20 text-sm px-4 py-3 outline-none transition-colors duration-200 font-300 resize-none"
                   />
                 </div>
 

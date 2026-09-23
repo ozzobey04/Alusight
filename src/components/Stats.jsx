@@ -58,7 +58,7 @@ export default function Stats() {
   return (
     <section ref={ref} className="py-20 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-ozzo-800 via-ozzo-700 to-ozzo-800" />
+      <div className="absolute inset-0 bg-gradient-to-r from-alusight-800 via-alusight-700 to-alusight-800" />
       <div className="absolute inset-0 hero-grid-bg opacity-30" />
 
       {/* Top/Bottom gold lines */}
@@ -71,7 +71,7 @@ export default function Stats() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-10">
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-ozzo-500/30">
+        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-alusight-500/30">
           {stats.map((s, i) => (
             <StatCard key={s.label} stat={s} started={started} index={i} />
           ))}

@@ -14,10 +14,10 @@ async function takePhotoNative() {
   return photo.base64String
 }
 
-const PROJECTS_KEY = 'ozzo_fab_projects'
-const HISTORY_KEY = 'ozzo_fab_history'
-const FIXES_KEY   = 'ozzo_fab_fixes'
-const API_KEY_LS  = 'ozzo_anthropic_key'
+const PROJECTS_KEY = 'AluSight_fab_projects'
+const HISTORY_KEY = 'AluSight_fab_history'
+const FIXES_KEY   = 'AluSight_fab_fixes'
+const API_KEY_LS  = 'AluSight_anthropic_key'
 const loadLS = (k, d) => { try { return JSON.parse(localStorage.getItem(k) ?? 'null') ?? d } catch { return d } }
 const saveLS = (k, v) => localStorage.setItem(k, JSON.stringify(v))
 const getApiKey = () => import.meta.env.VITE_ANTHROPIC_KEY || localStorage.getItem(API_KEY_LS) || ''
@@ -94,19 +94,19 @@ function generateReport(result, image, jobNo, operator) {
   const sc   = result?.overallStatus === 'BAŞARISIZ' ? '#ef4444' : result?.overallStatus === 'DİKKAT' ? '#f59e0b' : '#10b981'
   const qs   = result?.qualityScore ?? null
   const rows = iss.map(i => `<tr style="border-bottom:1px solid #eee"><td style="padding:8px;font-size:12px">${i.label}</td><td style="padding:8px;font-size:12px">${i.description}</td><td style="padding:8px;text-align:center"><span style="background:${SEV_COLOR(i.severity)};color:#fff;padding:2px 8px;border-radius:4px;font-size:11px">${SEV_LABEL(i.severity)}</span></td></tr>`).join('')
-  const html = `<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><title>OZZO Raporu ${rNo}</title>
+  const html = `<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8"><title>AluSight Raporu ${rNo}</title>
 <style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;padding:40px;color:#111}.hdr{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:3px solid #c9a84c;padding-bottom:20px;margin-bottom:24px}.logo{font-size:26px;font-weight:800;letter-spacing:0.1em}.sub{font-size:10px;letter-spacing:0.2em;color:#888;margin-top:2px}.sec{margin-bottom:20px}.st{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#888;border-bottom:1px solid #eee;padding-bottom:6px;margin-bottom:12px}.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mi{background:#f8f8f8;padding:10px 14px;border-radius:4px}.ml{font-size:10px;color:#999;text-transform:uppercase}.mv{font-size:13px;font-weight:600;color:#111;margin-top:2px}table{width:100%;border-collapse:collapse}th{background:#f8f8f8;padding:8px;font-size:11px;text-align:left;font-weight:700;color:#555;text-transform:uppercase}.photo{border:1px solid #ddd;border-radius:6px;overflow:hidden;max-height:280px;text-align:center;background:#f0f0f0}.photo img{max-width:100%;max-height:280px;object-fit:contain}.smry{background:#f8f8f8;border-left:4px solid #c9a84c;padding:12px 16px;font-size:13px;line-height:1.7;color:#333}.signs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:40px}.sign{border-top:1px solid #ccc;padding-top:8px;text-align:center;font-size:10px;color:#999;text-transform:uppercase}.ft{margin-top:24px;border-top:1px solid #eee;padding-top:10px;font-size:10px;color:#aaa;text-align:center}</style></head>
-<body><div class="hdr"><div><div class="logo">OZZO</div><div class="sub">ALÜMINYUM</div></div><div style="text-align:center"><div style="font-size:15px;font-weight:700">KALİTE KONTROL RAPORU</div></div><div style="text-align:right;font-size:11px;color:#555;line-height:1.8"><div><strong>Rapor No:</strong> ${rNo}</div><div><strong>Tarih:</strong> ${date}</div><div><strong>Saat:</strong> ${time}</div></div></div>
+<body><div class="hdr"><div><div class="logo">AluSight</div><div class="sub">ALÜMINYUM</div></div><div style="text-align:center"><div style="font-size:15px;font-weight:700">KALİTE KONTROL RAPORU</div></div><div style="text-align:right;font-size:11px;color:#555;line-height:1.8"><div><strong>Rapor No:</strong> ${rNo}</div><div><strong>Tarih:</strong> ${date}</div><div><strong>Saat:</strong> ${time}</div></div></div>
 <div class="sec" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px"><div style="border:2px solid ${sc};padding:8px 20px;border-radius:6px;display:inline-block"><div style="font-size:10px;color:#888;text-transform:uppercase;margin-bottom:2px">Genel Durum</div><div style="font-size:20px;font-weight:800;color:${sc}">${result?.overallStatus === 'GEÇTİ' ? '✓ GEÇTİ' : result?.overallStatus === 'DİKKAT' ? '⚠ DİKKAT' : '✗ BAŞARISIZ'}</div></div>${qs != null ? `<div style="text-align:right"><div style="font-size:11px;color:#999">Kalite Skoru</div><div style="font-size:28px;font-weight:800;color:${qs >= 80 ? '#10b981' : qs >= 50 ? '#f59e0b' : '#ef4444'}">${qs}/100</div></div>` : ''}</div>
-<div class="sec"><div class="st">Denetim Bilgileri</div><div class="meta"><div class="mi"><div class="ml">İş Emri No</div><div class="mv">${jobNo || '—'}</div></div><div class="mi"><div class="ml">Denetçi</div><div class="mv">${operator || '—'}</div></div><div class="mi"><div class="ml">Tarih / Saat</div><div class="mv">${date} ${time}</div></div><div class="mi"><div class="ml">Yöntem</div><div class="mv">OZZO Görsel Analiz</div></div></div></div>
+<div class="sec"><div class="st">Denetim Bilgileri</div><div class="meta"><div class="mi"><div class="ml">İş Emri No</div><div class="mv">${jobNo || '—'}</div></div><div class="mi"><div class="ml">Denetçi</div><div class="mv">${operator || '—'}</div></div><div class="mi"><div class="ml">Tarih / Saat</div><div class="mv">${date} ${time}</div></div><div class="mi"><div class="ml">Yöntem</div><div class="mv">AluSight Görsel Analiz</div></div></div></div>
 ${image ? `<div class="sec"><div class="st">Kontrol Fotoğrafı</div><div class="photo"><img src="${image}" alt=""/></div></div>` : ''}
 ${result?.summary ? `<div class="sec"><div class="st">Değerlendirme Özeti</div><div class="smry">${result.summary}</div></div>` : ''}
 <div class="sec"><div class="st">Tespit Edilen Sorunlar (${iss.length})</div>${iss.length === 0 ? '<div style="text-align:center;padding:16px;color:#10b981;font-weight:700">✓ Sorun tespit edilmedi</div>' : `<table><thead><tr><th>Sorun</th><th>Açıklama</th><th style="text-align:center">Öncelik</th></tr></thead><tbody>${rows}</tbody></table>`}</div>
 <div class="signs"><div class="sign">Kalite Kontrolcü</div><div class="sign">Üretim Sorumlusu</div><div class="sign">Onay</div></div>
-<div class="ft">OZZO Alüminyum — ${rNo} — ${date}</div></body></html>`
+<div class="ft">AluSight — ${rNo} — ${date}</div></body></html>`
   const blob = new Blob([html], { type: 'text/html' })
   const url = URL.createObjectURL(blob)
-  const a = document.createElement('a'); a.href = url; a.download = `OZZO-Raporu-${rNo}.html`; a.click()
+  const a = document.createElement('a'); a.href = url; a.download = `alusight-Raporu-${rNo}.html`; a.click()
   URL.revokeObjectURL(url)
   return rNo
 }
@@ -433,10 +433,10 @@ export default function FabrikasyonPage() {
     setDemoRunning(true)
     const steps = [
       { delay: 0,    phase: 'capture',  msg: '📸 Atölyeden fotoğraf çekildi...', detail: 'İş Emri: IE-2024-042 · Profil: HiFinity Sürme' },
-      { delay: 1800, phase: 'upload',   msg: '☁️ Sunucuya yükleniyor...', detail: 'OZZO analiz sistemine gönderiliyor' },
+      { delay: 1800, phase: 'upload',   msg: '☁️ Sunucuya yükleniyor...', detail: 'AluSight analiz sistemine gönderiliyor' },
       { delay: 3200, phase: 'analyze',  msg: '🔍 Analiz ediliyor...', detail: 'AI kalite kontrol motoru çalışıyor' },
       { delay: 5000, phase: 'issue',    msg: '⚠️ Hata tespit edildi!', detail: 'Mastik eksikliği — Alt sürme rayında dolgu yapılmamış', severity: 'high' },
-      { delay: 6200, phase: 'notify',   msg: '📲 Bildirim gönderildi!', detail: 'Usta Ahmet\'e WhatsApp bildirimi iletildi: 0535 861 04 04', severity: 'high' },
+      { delay: 6200, phase: 'notify',   msg: '📲 Bildirim gönderildi!', detail: 'Usta Ahmet\'e WhatsApp bildirimi iletildi: +90 535 861 0404', severity: 'high' },
       { delay: 8500, phase: 'fix',      msg: '✅ Düzeltme onaylandı', detail: 'Usta Ahmet hatayı düzeltti ve sisteme giriş yaptı', severity: 'ok' },
       { delay: 10000, phase: 'done',    msg: '🎉 Kalite kontrolü tamamlandı', detail: 'Doğrama teslimata hazır · Tüm kontroller geçti', severity: 'ok' },
     ]
@@ -534,7 +534,7 @@ export default function FabrikasyonPage() {
                 </svg>
               </div>
               <div>
-                <p className="text-[10px] text-gold-400 font-bold tracking-widest uppercase">OzzoŞef Mobil</p>
+                <p className="text-[10px] text-gold-400 font-bold tracking-widest uppercase">AluSightŞef Mobil</p>
                 <p className="text-white text-xs font-semibold">Atölyede profili tara · Hataları tespit et · Düzelt</p>
                 <p className="text-gray-600 text-[11px] mt-0.5">Gerçek zamanlı kamera taraması yalnızca mobil uygulamada</p>
               </div>
@@ -708,7 +708,7 @@ export default function FabrikasyonPage() {
                       <span className="text-base">💬</span>
                       <div>
                         <p className="text-[10px] font-bold text-[#25D366]">WhatsApp Bildirimi</p>
-                        <p className="text-[10px] text-gray-400">⚠️ OZZO Fabrikasyon Hata: Mastik eksikliği tespit edildi. IE-2024-042</p>
+                        <p className="text-[10px] text-gray-400">⚠️ AluSight Fabrikasyon Hata: Mastik eksikliği tespit edildi. IE-2024-042</p>
                       </div>
                     </div>
                   )}
@@ -755,7 +755,7 @@ export default function FabrikasyonPage() {
           <div className="flex items-center gap-2">
             {analyzing && <>
               <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-              <span className="text-xs text-white">OZZO analiz ediyor...</span>
+              <span className="text-xs text-white">AluSight analiz ediyor...</span>
             </>}
             {!analyzing && analyzeCount > 0 && <>
               <div className="w-2 h-2 rounded-full bg-green-400" />
@@ -814,7 +814,7 @@ export default function FabrikasyonPage() {
         )}
         {capturedImg && (
           <div className="relative rounded-2xl overflow-hidden bg-black mb-4">
-            {analyzing && <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10"><div className="text-center"><div className="w-10 h-10 border-2 border-gold-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"/><p className="text-sm text-gold-400">{batchImgs.length > 1 ? `${batchImgs.length} fotoğraf analiz ediliyor...` : 'OZZO analiz ediyor...'}</p></div></div>}
+            {analyzing && <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10"><div className="text-center"><div className="w-10 h-10 border-2 border-gold-500 border-t-transparent rounded-full animate-spin mx-auto mb-2"/><p className="text-sm text-gold-400">{batchImgs.length > 1 ? `${batchImgs.length} fotoğraf analiz ediliyor...` : 'AluSight analiz ediyor...'}</p></div></div>}
             <img src={capturedImg} alt="" className="w-full max-h-72 object-contain bg-black" />
             {!analyzing && issues.map((iss, i) => (
               <div key={i} className="absolute rounded" style={{ left:`${iss.xPercent}%`, top:`${iss.yPercent}%`, width:`${iss.wPercent}%`, height:`${iss.hPercent}%`, border:`2px solid ${SEV_COLOR(iss.severity)}`, boxShadow:`0 0 10px ${SEV_COLOR(iss.severity)}50` }}>
@@ -909,7 +909,7 @@ export default function FabrikasyonPage() {
           <div className="space-y-3">
             <button onClick={sendInternalNotif} className="w-full bg-gold-500 hover:bg-gold-400 active:scale-95 font-bold py-4 rounded-xl text-base transition-all text-black flex items-center justify-center gap-2">
               <span>📡</span>
-              {notifSent ? 'Tekrar Bildir + Yeni Rapor' : issues.length > 0 ? 'Rapor İndir + Şirket İçi Bildirim Gönder' : 'OZZO Raporu İndir'}
+              {notifSent ? 'Tekrar Bildir + Yeni Rapor' : issues.length > 0 ? 'Rapor İndir + Şirket İçi Bildirim Gönder' : 'AluSight Raporu İndir'}
             </button>
             <a href="/bildirim" className="w-full flex items-center justify-center gap-2 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-300 font-bold py-3 rounded-xl text-sm transition-all">
               🔔 Bildirim Merkezini Aç

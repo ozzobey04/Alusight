@@ -107,7 +107,7 @@ export default function Navbar({ calcMode = false }) {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       scrolled || isCalcPage
-        ? 'bg-ozzo-900/95 backdrop-blur-md shadow-[0_1px_0_rgba(201,168,76,0.15)]'
+        ? 'bg-alusight-900/95 backdrop-blur-md shadow-[0_1px_0_rgba(201,168,76,0.15)]'
         : 'bg-transparent'
     }`}>
       <nav className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-24">
@@ -244,14 +244,14 @@ export default function Navbar({ calcMode = false }) {
       </nav>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden overflow-hidden transition-all duration-500 bg-ozzo-800/98 backdrop-blur-md border-t border-ozzo-500/30 ${
+      <div className={`lg:hidden overflow-hidden transition-all duration-500 bg-alusight-800/98 backdrop-blur-md border-t border-alusight-500/30 ${
         menuOpen ? 'max-h-[40rem] opacity-100' : 'max-h-0 opacity-0'
       }`}>
         <ul className="px-6 py-4 flex flex-col gap-1">
           {isCalcPage && (
             <li>
               <button onClick={() => { navigate('/'); setMenuOpen(false) }}
-                className="flex items-center gap-2 py-3 text-gold-400 text-sm font-display border-b border-ozzo-500/20 w-full">
+                className="flex items-center gap-2 py-3 text-gold-400 text-sm font-display border-b border-alusight-500/20 w-full">
                 ← Ana Sayfa
               </button>
             </li>
@@ -262,7 +262,7 @@ export default function Navbar({ calcMode = false }) {
                 <div>
                   <button
                     onClick={() => toggleMobileDrop(idx)}
-                    className={`w-full text-left flex items-center justify-between font-display font-500 text-sm tracking-wide py-3 border-b border-ozzo-500/20 transition-colors ${
+                    className={`w-full text-left flex items-center justify-between font-display font-500 text-sm tracking-wide py-3 border-b border-alusight-500/20 transition-colors ${
                       link.dropdown.some(s => location.pathname === s.path) || mobileOpenIdx === idx
                         ? 'text-gold-400' : 'text-white/90'
                     }`}
@@ -288,14 +288,14 @@ export default function Navbar({ calcMode = false }) {
                 </div>
               ) : link.path ? (
                 <button onClick={() => handleCalcNav(link.path)}
-                  className={`block w-full text-left font-display font-500 text-sm tracking-wide py-3 border-b border-ozzo-500/20 transition-colors ${
+                  className={`block w-full text-left font-display font-500 text-sm tracking-wide py-3 border-b border-alusight-500/20 transition-colors ${
                     location.pathname === link.path ? 'text-gold-400' : 'text-white/90 hover:text-white'
                   }`}>
                   {link.label}
                 </button>
               ) : (
                 <a href={link.href} onClick={(e) => handleSectionNav(e, link.href)}
-                  className={`block font-display font-500 text-sm tracking-wide py-3 border-b border-ozzo-500/20 transition-colors ${
+                  className={`block font-display font-500 text-sm tracking-wide py-3 border-b border-alusight-500/20 transition-colors ${
                     link.cta ? 'text-gold-400 font-600' :
                     !isCalcPage && activeLink === link.href ? 'text-gold-400' : 'text-white/90 hover:text-white'
                   }`}>

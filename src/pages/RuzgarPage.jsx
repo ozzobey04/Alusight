@@ -4,7 +4,7 @@ import RaporIndir from '../components/RaporIndir'
 import { buildReportHeader, buildReportFooter } from '../utils/raporProfili'
 
 /* ═══════════════════════════════════════════════════════════════
-   OZZO RÜZGAR YÜKÜ HESAPLAYICI
+   AluSight RÜZGAR YÜKÜ HESAPLAYICI
    Standart: TS EN 1991-1-4:2005 / Eurocode 1 Bölüm 1-4
    Formüller: EN 1991-1-4 Madde 4.3, 4.4, 4.5, 5.2, 7.2
    ═══════════════════════════════════════════════════════════════ */
@@ -165,7 +165,7 @@ export default function RuzgarPage() {
     ).join('')
 
     const html = `<!DOCTYPE html><html lang="tr"><head><meta charset="UTF-8">
-<title>OZZO Rüzgar Yükü Raporu ${rNo}</title>
+<title>AluSight Rüzgar Yükü Raporu ${rNo}</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;font-size:13px;color:#111;padding:40px;background:#fff}

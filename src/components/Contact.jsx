@@ -9,7 +9,7 @@ const contactItems = [
     ),
     label: 'Telefon',
     lines: [
-      '+90 535 861 04 04',
+      '+90 535 861 0404',
     ],
   },
   {
@@ -20,8 +20,8 @@ const contactItems = [
     ),
     label: 'E-posta',
     lines: [
-      'info@ozzoaluminyum.com',
-      'teklif@ozzoaluminyum.com',
+      'info@alusight.com',
+      'teklif@alusight.com',
     ],
   },
   {
@@ -59,7 +59,7 @@ export default function Contact() {
   }, [])
 
   return (
-    <section id="iletisim" className="py-28 bg-ozzo-900 relative overflow-hidden" ref={containerRef}>
+    <section id="iletisim" className="py-28 bg-alusight-900 relative overflow-hidden" ref={containerRef}>
 
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
       <div className="absolute inset-0 hero-grid-bg opacity-20" />
@@ -82,7 +82,7 @@ export default function Contact() {
           {contactItems.map((item) => (
             <div
               key={item.label}
-              className="bg-ozzo-700/40 border border-ozzo-500/30 hover:border-gold-500/30 p-8 transition-all duration-300 group text-center"
+              className="bg-alusight-700/40 border border-alusight-500/30 hover:border-gold-500/30 p-8 transition-all duration-300 group text-center"
             >
               <div className="w-14 h-14 border border-gold-500/20 bg-gold-500/5 flex items-center justify-center text-gold-500 mb-5 mx-auto group-hover:bg-gold-500/10 transition-colors duration-300">
                 {item.icon}
@@ -101,7 +101,7 @@ export default function Contact() {
         <div className="anim-init grid grid-cols-1 lg:grid-cols-3 gap-6">
 
           {/* Address card */}
-          <div className="bg-ozzo-700/40 border border-ozzo-500/30 hover:border-gold-500/30 transition-all duration-300 p-8 flex flex-col gap-6">
+          <div className="bg-alusight-700/40 border border-alusight-500/30 hover:border-gold-500/30 transition-all duration-300 p-8 flex flex-col gap-6">
 
             {/* Adres */}
             <div className="flex gap-4">
@@ -120,11 +120,11 @@ export default function Contact() {
             </div>
 
             {/* Divider */}
-            <div className="h-px bg-ozzo-500/30" />
+            <div className="h-px bg-alusight-500/30" />
 
             {/* Yol tarifi butonu */}
             <a
-              href="https://www.google.com/maps/search/OZZO+Aluminyum+Istanbul"
+              href="https://www.google.com/maps/search/AluSight+Aluminyum+Istanbul"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 group/link"
@@ -144,7 +144,7 @@ export default function Contact() {
             </a>
 
             {/* Divider */}
-            <div className="h-px bg-ozzo-500/30" />
+            <div className="h-px bg-alusight-500/30" />
 
             {/* WhatsApp konum */}
             <a
@@ -168,10 +168,10 @@ export default function Contact() {
           </div>
 
           {/* Google Maps iframe */}
-          <div className="lg:col-span-2 relative overflow-hidden border border-ozzo-500/30 min-h-[340px]">
+          <div className="lg:col-span-2 relative overflow-hidden border border-alusight-500/30 min-h-[340px]">
             <iframe
-              title="OZZO Alüminyum Konum"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96377.64509965704!2d28.872!3d41.0082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa4a39f8c6f5d%3A0x4a4b8f4e6c7d8e9f!2sOZZO%20Alüminyum!5e0!3m2!1str!2str!4v1710000000000!5m2!1str!2str"
+              title="AluSight Konum"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96377.64509965704!2d28.872!3d41.0082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa4a39f8c6f5d%3A0x4a4b8f4e6c7d8e9f!2sAluSight%20Alüminyum!5e0!3m2!1str!2str!4v1710000000000!5m2!1str!2str"
               width="100%"
               height="100%"
               style={{ border: 0, position: 'absolute', inset: 0, filter: 'grayscale(0.2) contrast(1.05)' }}
@@ -181,10 +181,10 @@ export default function Contact() {
             />
             {/* Gold overlay badge */}
             <div className="absolute top-4 left-4 z-10 pointer-events-none">
-              <div className="bg-ozzo-900/90 border border-gold-500/30 backdrop-blur-sm px-4 py-2.5 flex items-center gap-2">
+              <div className="bg-alusight-900/90 border border-gold-500/30 backdrop-blur-sm px-4 py-2.5 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-gold-500 animate-pulse" />
                 <div>
-                  <div className="text-gold-500 text-xs font-display tracking-widest uppercase font-600">OZZO Alüminyum</div>
+                  <div className="text-gold-500 text-xs font-display tracking-widest uppercase font-600">AluSight</div>
                   <div className="text-white/50 text-xs font-300 mt-0.5">İstanbul, Türkiye</div>
                 </div>
               </div>

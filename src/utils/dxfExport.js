@@ -166,7 +166,7 @@ export function exportFlixoDXF({ profile, glazing, W, H }) {
   d.line(tbX, tbY + 38, tbX + tbW, tbY + 38, 'TITLEBLOCK')
   d.line(tbX + tbW * 0.55, tbY, tbX + tbW * 0.55, tbY + 38, 'TITLEBLOCK')
 
-  d.txt(tbX + 5, tbY + 48, 'OZZO ALUMINYUM — TERMAL KOPRU KESIT DETAYI', 5.5, 'YAZI')
+  d.txt(tbX + 5, tbY + 48, 'AluSight — TERMAL KOPRU KESIT DETAYI', 5.5, 'YAZI')
   d.txt(tbX + 5, tbY + 57, `Profil: ${profile.name}  |  Cam: ${glazing?.name ?? '-'}`, 4.5, 'YAZI')
   d.txt(tbX + 5, tbY + 65,
     `Uf = ${profile.Uf} W/m²K   ψ = ${profile.psi_frame} W/mK   EN ISO 10077-1`, 4, 'DIM')
@@ -177,11 +177,11 @@ export function exportFlixoDXF({ profile, glazing, W, H }) {
   d.txt(tbX + 5, tbY + 29,
     `Tarih: ${new Date().toLocaleDateString('tr-TR')}  |  Ölçek: 1:1 (1 birim = 1 mm)`, 3.5, 'YAZI')
 
-  d.txt(tbX + tbW * 0.55 + 5, tbY + 10, 'OZZO Aluminyum', 5.5, 'YAZI')
-  d.txt(tbX + tbW * 0.55 + 5, tbY + 22, 'Tel: +90 535 861 04 04', 4,   'YAZI')
+  d.txt(tbX + tbW * 0.55 + 5, tbY + 10, 'AluSight', 5.5, 'YAZI')
+  d.txt(tbX + tbW * 0.55 + 5, tbY + 22, 'Tel: +90 535 861 0404', 4,   'YAZI')
   d.txt(tbX + tbW * 0.55 + 5, tbY + 32, new Date().toLocaleDateString('tr-TR'), 4, 'YAZI')
 
-  saveDXF(d.build(), `OZZO_Flixo_${profile.short}_${W}x${H}m.dxf`)
+  saveDXF(d.build(), `AluSight_Flixo_${profile.short}_${W}x${H}m.dxf`)
 }
 
 /* ═══════════════════════════════════════════════════
@@ -282,7 +282,7 @@ export function exportPvcDXF({ product, profileSys, glass, r, W, H, qty, clientN
   d.line(0, tbY + 38, tbW, tbY + 38, 'TITLEBLOCK')
   d.line(tbW * 0.56, tbY, tbW * 0.56, tbY + 38, 'TITLEBLOCK')
 
-  d.txt(5, tbY + 47, 'OZZO ALUMINYUM — PVC KESIM PLANI & TEKLIF', 5.5, 'YAZI')
+  d.txt(5, tbY + 47, 'AluSight — PVC KESIM PLANI & TEKLIF', 5.5, 'YAZI')
   d.txt(5, tbY + 57, `${product.name}  ·  ${profileSys.name}  ·  ${glass.name}`, 4.5, 'YAZI')
   d.txt(5, tbY + 64, clientName ? `Müşteri: ${clientName}` : '', 4, 'YAZI')
 
@@ -293,9 +293,9 @@ export function exportPvcDXF({ product, profileSys, glass, r, W, H, qty, clientN
   d.txt(5, tbY + 30,
     `${r.barsNeeded} çubuk × ${r.bLen} m  ·  Fire: ${r.cutting.wastePerc.toFixed(1)}%  ·  1 birim = 1 mm`, 3.5, 'YAZI')
 
-  d.txt(tbW * 0.56 + 5, tbY + 10, 'OZZO Aluminyum',                      5.5, 'YAZI')
+  d.txt(tbW * 0.56 + 5, tbY + 10, 'AluSight',                      5.5, 'YAZI')
   d.txt(tbW * 0.56 + 5, tbY + 22, 'Tel: +90 535 861 04 04',               4,   'YAZI')
   d.txt(tbW * 0.56 + 5, tbY + 33, new Date().toLocaleDateString('tr-TR'), 4,   'YAZI')
 
-  saveDXF(d.build(), `OZZO_PVC_${product.short}_${qty}ad_${wMM}x${hMM}.dxf`)
+  saveDXF(d.build(), `AluSight_PVC_${product.short}_${qty}ad_${wMM}x${hMM}.dxf`)
 }

@@ -1,43 +1,95 @@
+import { Link } from 'react-router-dom'
 import Logo from './Logo'
 
 const footerLinks = {
-  Hizmetler: [
-    'Alüminyum Doğrama',
-    'Giydirme Cephe',
-    'Cam Balkon & Korkuluk',
-    'Ofis Bölme Sistemleri',
-    'Pergola & Tente',
-    'Endüstriyel Çözümler',
-  ],
-  Kurumsal: [
-    'Hakkımızda',
-    'Kalite Politikamız',
-    'Sertifikalar',
-    'Kariyer',
-    'Basın & Medya',
-  ],
-  Destek: [
-    'Teklif Al',
-    'Teknik Destek',
-    'Garanti Koşulları',
-    'Bakım & Servis',
-    'SSS',
-  ],
+  Hizmetler: {
+    items: [
+      { label: 'Alüminyum Doğrama', href: '/#hizmetler' },
+      { label: 'Giydirme Cephe', href: '/#hizmetler' },
+      { label: 'Cam Balkon & Korkuluk', href: '/#hizmetler' },
+      { label: 'Ofis Bölme Sistemleri', href: '/#hizmetler' },
+      { label: 'Pergola & Tente', href: '/#hizmetler' },
+      { label: 'Endüstriyel Çözümler', href: '/#hizmetler' },
+    ],
+  },
+  Kurumsal: {
+    items: [
+      { label: 'Hakkımızda', page: '/hakkimizda' },
+      { label: 'Kalite Politikamız', disabled: true },
+      { label: 'Sertifikalar', disabled: true },
+      { label: 'Kariyer', disabled: true },
+      { label: 'Basın & Medya', disabled: true },
+    ],
+  },
+  Destek: {
+    items: [
+      { label: 'Teklif Al', href: '/#teklif' },
+      { label: 'Teknik Destek', disabled: true },
+      { label: 'Garanti Koşulları', disabled: true },
+      { label: 'Bakım & Servis', disabled: true },
+      { label: 'SSS', page: '/sss' },
+    ],
+  },
 }
+
+const legalLinks = [
+  { label: 'Gizlilik Politikası', to: '/gizlilik' },
+  { label: 'Kullanım Koşulları', to: '/kullanim-kosullari' },
+  { label: 'KVKK', to: '/kvkk' },
+]
 
 const scrollTo = (id) => {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
+function FooterLink({ item }) {
+  if (item.disabled) {
+    return (
+      <span className="text-white/20 text-sm font-300 cursor-default inline-block">
+        {item.label}
+      </span>
+    )
+  }
+  if (item.page) {
+    return (
+      <Link
+        to={item.page}
+        className="text-white/35 text-sm hover:text-gold-400 transition-colors duration-200 font-300 hover:pl-1 inline-block transition-all"
+      >
+        {item.label}
+      </Link>
+    )
+  }
+  if (item.href?.startsWith('/#')) {
+    const id = item.href.replace('/#', '')
+    return (
+      <button
+        onClick={() => scrollTo(id)}
+        className="text-white/35 text-sm hover:text-gold-400 transition-colors duration-200 font-300 hover:pl-1 inline-block transition-all text-left"
+      >
+        {item.label}
+      </button>
+    )
+  }
+  return (
+    <a
+      href={item.href}
+      className="text-white/35 text-sm hover:text-gold-400 transition-colors duration-200 font-300 hover:pl-1 inline-block transition-all"
+    >
+      {item.label}
+    </a>
+  )
+}
+
 export default function Footer() {
   return (
-    <footer className="bg-ozzo-950 relative overflow-hidden">
+    <footer className="bg-alusight-950 relative overflow-hidden">
 
       {/* Top gold line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent" />
 
       {/* CTA band */}
-      <div className="border-b border-ozzo-700/50">
+      <div className="border-b border-alusight-700/50">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="font-display text-2xl md:text-3xl font-800 text-white mb-2">
@@ -80,7 +132,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-9 h-9 border border-ozzo-500/50 hover:border-gold-500/50 flex items-center justify-center text-white/40 hover:text-gold-500 transition-all duration-200"
+                  className="w-9 h-9 border border-alusight-500/50 hover:border-gold-500/50 flex items-center justify-center text-white/40 hover:text-gold-500 transition-all duration-200"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                     <path d={social.path} />
@@ -91,20 +143,15 @@ export default function Footer() {
           </div>
 
           {/* Link columns */}
-          {Object.entries(footerLinks).map(([heading, links]) => (
+          {Object.entries(footerLinks).map(([heading, { items }]) => (
             <div key={heading}>
               <h4 className="font-display text-sm font-700 text-white tracking-wider uppercase mb-5">
                 {heading}
               </h4>
               <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-white/35 text-sm hover:text-gold-400 transition-colors duration-200 font-300 hover:pl-1 inline-block transition-all"
-                    >
-                      {link}
-                    </a>
+                {items.map((item) => (
+                  <li key={item.label}>
+                    <FooterLink item={item} />
                   </li>
                 ))}
               </ul>
@@ -114,13 +161,19 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-ozzo-700/40">
+      <div className="border-t border-alusight-700/40">
         <div className="max-w-7xl mx-auto px-6 lg:px-10 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/25 text-xs font-300">
-          <span>© 2025 OZZO Aluminyum. Tüm hakları saklıdır.</span>
+          <span>© 2025 AluSight. Tüm hakları saklıdır.</span>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white/60 transition-colors">Gizlilik Politikası</a>
-            <a href="#" className="hover:text-white/60 transition-colors">Kullanım Koşulları</a>
-            <a href="#" className="hover:text-white/60 transition-colors">KVKK</a>
+            {legalLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="hover:text-white/60 transition-colors"
+              >
+                {link.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

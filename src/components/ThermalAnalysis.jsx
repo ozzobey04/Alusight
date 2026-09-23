@@ -663,7 +663,7 @@ export default function ThermalAnalysis() {
               <div className="max-w-2xl mx-auto">
                 <div className="bg-white/4 border border-white/10 rounded-lg p-8 font-mono text-sm space-y-4">
                   <div className="border-b border-white/15 pb-4">
-                    <div className="text-gold-400 font-bold text-base">OZZO Alüminyum — Termal Köprü Raporu</div>
+                    <div className="text-gold-400 font-bold text-base">AluSight — Termal Köprü Raporu</div>
                     <div className="text-white/40 text-xs mt-1">EN ISO 10077-1 / EN ISO 10211 / EN ISO 13788 — {new Date().toLocaleDateString('tr-TR')}</div>
                   </div>
                   <div className="grid grid-cols-2 gap-4 text-xs">

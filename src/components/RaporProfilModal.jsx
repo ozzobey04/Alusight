@@ -165,7 +165,7 @@ export default function RaporProfilModal({ onClose }) {
               <div className="text-xs text-gray-400">
                 <span className="text-gray-500">Aktif şablon:</span>{' '}
                 <span className="text-white font-semibold">
-                  {tercih === 'musteri' ? '🧑 Müşteri Şablonu' : '🏢 OZZO Şablonu'}
+                  {tercih === 'musteri' ? '🧑 Müşteri Şablonu' : '🏢 AluSight Şablonu'}
                 </span>
                 <span className="text-gray-600 ml-2">(Her raporda otomatik uygulanır)</span>
               </div>

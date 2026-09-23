@@ -47,7 +47,7 @@ export default function RenkPage() {
   const [selected, setSelected] = useState(null)
   const [compareList, setCompareList] = useState([])
   const [savedColors, setSavedColors] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('ozzo_saved_colors') || '[]') } catch { return [] }
+    try { return JSON.parse(localStorage.getItem('AluSight_saved_colors') || '[]') } catch { return [] }
   })
   const [showSaved, setShowSaved] = useState(false)
 
@@ -72,13 +72,13 @@ export default function RenkPage() {
     if (savedColors.find(s => s.code === c.code)) return
     const updated = [...savedColors, { ...c, savedAt: new Date().toLocaleDateString('tr-TR') }]
     setSavedColors(updated)
-    localStorage.setItem('ozzo_saved_colors', JSON.stringify(updated))
+    localStorage.setItem('AluSight_saved_colors', JSON.stringify(updated))
   }
 
   const removeColor = (code) => {
     const updated = savedColors.filter(s => s.code !== code)
     setSavedColors(updated)
-    localStorage.setItem('ozzo_saved_colors', JSON.stringify(updated))
+    localStorage.setItem('AluSight_saved_colors', JSON.stringify(updated))
   }
 
 
@@ -240,7 +240,7 @@ export default function RenkPage() {
                   </div>
                 ))}
               </div>
-              <button onClick={() => { setSavedColors([]); localStorage.removeItem('ozzo_saved_colors') }}
+              <button onClick={() => { setSavedColors([]); localStorage.removeItem('AluSight_saved_colors') }}
                 className="mt-3 w-full text-xs text-red-400/50 hover:text-red-400 py-1 transition-colors">Temizle</button>
             </div>
           )}

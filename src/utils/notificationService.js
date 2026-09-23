@@ -1,11 +1,11 @@
 /* ════════════════════════════════════════════════════════
-   OZZO BİLDİRİM SERVİSİ
+   AluSight BİLDİRİM SERVİSİ
    Firebase Realtime Database + BroadcastChannel + Browser Push
    ════════════════════════════════════════════════════════ */
 
-const LOCAL_KEY   = 'ozzo_notifications'
-const CONFIG_KEY  = 'ozzo_firebase_cfg'
-const SOUND_KEY   = 'ozzo_notif_sound'
+const LOCAL_KEY   = 'AluSight_notifications'
+const CONFIG_KEY  = 'AluSight_firebase_cfg'
+const SOUND_KEY   = 'AluSight_notif_sound'
 
 /* ─── LocalStorage helpers ─────────────────────────────── */
 const ls = {
@@ -17,7 +17,7 @@ const ls = {
 let _channel = null
 function getChannel() {
   if (!_channel && typeof BroadcastChannel !== 'undefined') {
-    try { _channel = new BroadcastChannel('ozzo_notifications') } catch {}
+    try { _channel = new BroadcastChannel('AluSight_notifications') } catch {}
   }
   return _channel
 }
@@ -32,7 +32,7 @@ async function firebasePush(data) {
   const url = getFirebaseUrl()
   if (!url) return null
   try {
-    const res = await fetch(`${url}/ozzo_notifications.json`, {
+    const res = await fetch(`${url}/AluSight_notifications.json`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -46,7 +46,7 @@ async function firebaseFetch() {
   const url = getFirebaseUrl()
   if (!url) return {}
   try {
-    const res = await fetch(`${url}/ozzo_notifications.json?orderBy="$key"&limitToLast=50`)
+    const res = await fetch(`${url}/AluSight_notifications.json?orderBy="$key"&limitToLast=50`)
     if (res.ok) return await res.json() ?? {}
   } catch {}
   return {}
@@ -56,7 +56,7 @@ async function firebasePatch(firebaseKey, data) {
   const url = getFirebaseUrl()
   if (!url || !firebaseKey) return
   try {
-    await fetch(`${url}/ozzo_notifications/${firebaseKey}.json`, {
+    await fetch(`${url}/AluSight_notifications/${firebaseKey}.json`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -75,7 +75,7 @@ export async function requestPushPermission() {
 function showBrowserNotification(notif) {
   if (Notification.permission !== 'granted') return
   try {
-    const n = new Notification('🔧 OZZO Fabrikasyon Uyarı', {
+    const n = new Notification('🔧 AluSight Fabrikasyon Uyarı', {
       body: notif.message,
       icon: '/favicon.svg',
       badge: '/favicon.svg',

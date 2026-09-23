@@ -30,7 +30,7 @@ export default function Projects() {
   }, [])
 
   return (
-    <section id="projeler" className="py-28 bg-ozzo-900 relative overflow-hidden" ref={containerRef}>
+    <section id="projeler" className="py-28 bg-alusight-900 relative overflow-hidden" ref={containerRef}>
 
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/30 to-transparent" />
 
@@ -46,7 +46,7 @@ export default function Projects() {
             <div className="gold-line" />
           </div>
           <p className="text-white/50 text-lg max-w-2xl mx-auto font-300">
-            20 yıllık süreçte 750'yi aşkın projeyi başarıyla tamamladık.
+            8 yılı aşkın süreçte 100'ü aşkın projeyi başarıyla tamamladık.
             Referans listesi ve proje detayları için bizimle iletişime geçin.
           </p>
         </div>
@@ -66,11 +66,11 @@ export default function Projects() {
             <line x1="0" y1="80" x2="600" y2="80" stroke="url(#barGrad)" strokeWidth="0.5"/>
             {/* Big stat numbers */}
             {[
-              { x: 75,  label: '750+', sub: 'Proje'       },
-              { x: 200, label: '20+',  sub: 'Yıl'         },
+              { x: 75,  label: '100+', sub: 'Proje'       },
+              { x: 200, label: '8+',  sub: 'Yıl'         },
               { x: 320, label: '6',    sub: 'Hizmet Dalı' },
-              { x: 440, label: '80K+', sub: 'm² Alan'     },
-              { x: 560, label: '2K+',  sub: 'Müşteri'     },
+              { x: 440, label: '20K+', sub: 'm² Alan'     },
+              { x: 560, label: '100+', sub: 'Müşteri'     },
             ].map((s) => (
               <g key={s.x}>
                 <circle cx={s.x} cy="80" r="4" fill="#c9a84c" opacity="0.7"/>
@@ -95,7 +95,7 @@ export default function Projects() {
           {categories.map((cat, i) => (
             <div
               key={cat.label}
-              className={`anim-init anim-delay-${(i % 3) + 1} relative bg-ozzo-700/40 border border-ozzo-500/30 hover:border-gold-500/40 p-5 text-center group transition-all duration-300 overflow-hidden`}
+              className={`anim-init anim-delay-${(i % 3) + 1} relative bg-alusight-700/40 border border-alusight-500/30 hover:border-gold-500/40 p-5 text-center group transition-all duration-300 overflow-hidden`}
             >
               <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold-500/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"/>
               <div className="font-display text-2xl font-800 text-gradient-gold mb-1">{cat.count}</div>
@@ -105,7 +105,7 @@ export default function Projects() {
         </div>
 
         {/* CTA banner */}
-        <div className="anim-init relative border border-gold-500/20 bg-ozzo-700/20 p-10 md:p-14 overflow-hidden">
+        <div className="anim-init relative border border-gold-500/20 bg-alusight-700/20 p-10 md:p-14 overflow-hidden">
           <div className="absolute inset-0 hero-grid-bg opacity-20"/>
           <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-gold-500 to-transparent"/>
           <div className="relative text-center">

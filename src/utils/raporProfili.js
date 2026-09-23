@@ -1,10 +1,10 @@
 /* ═══════════════════════════════════════════════════════════
-   OZZO Rapor Profili — Müşteri/Proje Bilgisi
-   localStorage: ozzo_rapor_profili
+   AluSight Rapor Profili — Müşteri/Proje Bilgisi
+   localStorage: AluSight_rapor_profili
    ═══════════════════════════════════════════════════════════ */
 
-const KEY        = 'ozzo_rapor_profili'
-const TERCIH_KEY = 'ozzo_sablon_tercih'   // 'ozzo' | 'musteri' | null
+const KEY        = 'AluSight_rapor_profili'
+const TERCIH_KEY = 'AluSight_sablon_tercih'   // 'AluSight' | 'musteri' | null
 
 export const defaultProfil = () => ({
   firmaAdi:    '',
@@ -37,7 +37,7 @@ export function musteriSablonuVar() {
   return !!(p.firmaAdi || p.musteriAdi || p.logo || p.antet)
 }
 
-/* Şablon tercihi — 'ozzo' | 'musteri' | null (sorulsun) */
+/* Şablon tercihi — 'AluSight' | 'musteri' | null (sorulsun) */
 export function getSablonTercih() {
   return localStorage.getItem(TERCIH_KEY) || null
 }
@@ -53,8 +53,8 @@ export function getAktifProfil() {
   return defaultProfil()
 }
 
-/* OZZO varsayılan header (müşteri bilgisi yok) */
-export const ozzoProfil = () => defaultProfil()
+/* AluSight varsayılan header (müşteri bilgisi yok) */
+export const AluSightProfil = () => defaultProfil()
 
 /* Rapor HTML başlığı — tüm sayfalarda ortak */
 export function buildReportHeader(profil, baslik, standart, raporNo) {
@@ -81,10 +81,10 @@ export function buildReportHeader(profil, baslik, standart, raporNo) {
   </div>`
   }
 
-  /* ── Normal mod: OZZO veya müşteri branding'i ── */
+  /* ── Normal mod: AluSight veya müşteri branding'i ── */
   const logoHtml = profil.logo
     ? `<img src="${profil.logo}" style="max-height:52px;max-width:150px;object-fit:contain;display:block" />`
-    : `<div style="font-size:24px;font-weight:900;letter-spacing:0.1em;color:#111">${profil.firmaAdi || 'OZZO'}</div>
+    : `<div style="font-size:24px;font-weight:900;letter-spacing:0.1em;color:#111">${profil.firmaAdi || 'AluSight'}</div>
        <div style="font-size:8px;letter-spacing:0.25em;color:#888;margin-top:1px">${profil.firmaAdi ? '' : 'ALÜMINYUM'}</div>`
 
   const projeBlok = (profil.projeAdi || profil.musteriAdi || profil.hazırlayan)
@@ -123,10 +123,10 @@ export function buildReportFooter(profil, raporNo) {
   </div>`
   }
 
-  const ozzo  = 'OZZO Alüminyum — Mimari ve Teknik Ekibi'
+  const AluSight  = 'AluSight — Mimari ve Teknik Ekibi'
   const firma = profil.firmaAdi
     ? `${profil.firmaAdi}${profil.hazırlayan ? ' · ' + profil.hazırlayan : ''}`
-    : ozzo
+    : AluSight
   const tema  = profil.renkTema || '#c9a84c'
   const dipnot = profil.dipnot
     ? `<div style="margin-top:4px;font-size:10px;color:#bbb">${profil.dipnot}</div>` : ''

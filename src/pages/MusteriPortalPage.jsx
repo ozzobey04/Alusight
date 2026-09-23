@@ -9,7 +9,7 @@ const STAGES = [
   { id: 'teslim', label: 'Teslim',  color: '#10b981', icon: '✅', desc: 'Projeniz tamamlandı.' },
 ]
 
-const STOK_KEY = 'ozzo_santiyeler'
+const STOK_KEY = 'AluSight_santiyeler'
 
 export default function MusteriPortalPage() {
   const [params] = useSearchParams()
@@ -37,7 +37,7 @@ export default function MusteriPortalPage() {
         <div className="text-5xl mb-4">🔗</div>
         <h1 className="text-xl font-bold mb-2">Müşteri Portali</h1>
         <p className="text-gray-400 text-sm leading-relaxed">
-          Bu sayfayı görüntülemek için OZZO Alüminyum'dan gönderilen özel proje bağlantısını kullanın.
+          Bu sayfayı görüntülemek için AluSight'dan gönderilen özel proje bağlantısını kullanın.
         </p>
         <a href="https://wa.me/905358610404" target="_blank" rel="noreferrer"
           className="mt-6 inline-flex items-center gap-2 bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] px-5 py-2.5 rounded-xl text-sm font-semibold">
@@ -72,7 +72,7 @@ export default function MusteriPortalPage() {
       {/* Header */}
       <div className="bg-gradient-to-b from-[#0d1630] to-[#070d1f] px-4 pt-10 pb-8">
         <div className="max-w-lg mx-auto">
-          <div className="text-gold-400 text-xs font-display tracking-[0.3em] uppercase mb-2">OZZO Alüminyum — Müşteri Portali</div>
+          <div className="text-gold-400 text-xs font-display tracking-[0.3em] uppercase mb-2">AluSight — Müşteri Portali</div>
           <h1 className="text-2xl font-extrabold text-white mb-1">{site.name}</h1>
           <p className="text-gray-400 text-sm">{site.client}</p>
         </div>
@@ -165,7 +165,7 @@ export default function MusteriPortalPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
               </div>
-              0535 861 04 04
+              +90 535 861 0404
             </a>
             <a href="https://wa.me/905358610404?text=Merhaba, projem hakkında bilgi almak istiyorum."
               target="_blank" rel="noreferrer"
@@ -181,7 +181,7 @@ export default function MusteriPortalPage() {
         </div>
 
         <p className="text-center text-xs text-gray-600 pb-4">
-          OZZO Alüminyum · <a href="/" className="text-gold-400/70 hover:text-gold-400">ozzoaluminyum.com</a>
+          AluSight · <a href="/" className="text-gold-400/70 hover:text-gold-400">alusight.com</a>
         </p>
       </div>
     </div>

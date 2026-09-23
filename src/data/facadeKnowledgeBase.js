@@ -1,5 +1,5 @@
 /*
- * OZZO ALÜMİNYUM — Cephe Hata & Çözüm Bilgi Tabanı
+ * AluSight — Cephe Hata & Çözüm Bilgi Tabanı
  * Kaynaklar:
  *   1. Şantiye® Dergisi, Kasım-Aralık 2022 — Erdal Özdemir Röportajı (Cephe Danışmanı)
  *   2. FMT Mühendislik — "Facade Failures Due To Project Design Development And Workmanship"
@@ -1305,7 +1305,7 @@ export function buildKnowledgeContext() {
   ].map(r => `• ${r}`).join('\n')
 
   return `
-=== OZZO ALÜMİNYUM CEPHE UZMANLIK VERİTABANI ===
+=== AluSight CEPHE UZMANLIK VERİTABANI ===
 
 KAYNAKLAR: Şantiye® (Özdemir), FMT (Govind&Yılmaz 2017), IOP (Baş vd.2022), Respondek (2022), ODTÜ (Şengün 2013), Buildings (Cano 2022), Gazi MMF Dergisi, IEA EBC Annex43, Pre-design Cost Modeling
 

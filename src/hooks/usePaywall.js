@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 
-const STORAGE_KEY = 'ozzo_paywall'
+const STORAGE_KEY = 'AluSight_paywall'
 const FREE_LIMIT  = 3
 
 function currentMonthKey() {

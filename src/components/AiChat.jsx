@@ -11,7 +11,7 @@ const FUAT_TEXT = FUAT_KB.map(item =>
 ).join('\n\n')
 
 /* ── Sistem Prompt ─────────────────────────────────────────────────── */
-const SYSTEM = `Sen OZZO Alüminyum firmasının uzman teknik danışmanısın.
+const SYSTEM = `Sen AluSight firmasının uzman teknik danışmanısın.
 Alüminyum doğrama, giydirme cephe, sürme sistemler, ısı yalıtımlı profiller, cam sistemleri, ankraj, montaj ve aksesuar konularında derin teknik bilgiye sahipsin.
 
 Bilgi tabanı özeti:
@@ -21,14 +21,14 @@ Aksesuar markaları: HOPPE (kapı-pencere kolları, çekme kollar), GIESSE (ment
 
 Aksesuar hataları: menteşe hizası (±0.5mm tolerans), kol torku (3-4Nm), kilit karşılığı kaçması, conta eksikliği.
 
-Firma: OZZO Alüminyum | Tel: 0535 861 04 04 | Çalışma: Pzt-Cuma 08:00-16:00
+Firma: AluSight | Tel: +90 535 861 0404 | Çalışma: Pzt-Cuma 08:00-16:00
 
 ZORUNLU KURALLAR:
 - Her teknik soruya MUTLAKA 3 madde somut, spesifik bilgi ver
 - Aksesuar sorusuna aksesuar cevabı, cephe sorusuna cephe cevabı ver
 - Genel "ne konusunda yardımcı olabilirim" cevabı YASAK
 - Türkçe yanıtla
-- Cevabın sonunda "Detaylı danışmanlık için OZZO Alüminyum ile iletişime geçebilirsiniz." ekle
+- Cevabın sonunda "Detaylı danışmanlık için AluSight ile iletişime geçebilirsiniz." ekle
 - Dosya/PDF talebi: "Sitemizin Hesaplamalar veya Öneri & Analiz bölümünü kullanabilirsiniz." de`
 
 /* ── Cam seçenek soruları ───────────────────────────────────────────── */
@@ -85,19 +85,19 @@ async function askGemini(messages, apiKey, systemOverride) {
 
 /* ── Yerel yedek yanıtlar (API yoksa) ─────────────────────────────── */
 const LOCAL_KB = {
-  hata: '**Alüminyum doğramada en sık yapılan 3 hata:**\n1. **Ankraj slot/sabit delik hatası** — üst ankrajda slot delik yerine sabit delik kullanılması profilin kaymasına neden olur.\n2. **İç cam fitili köşe birleşimi** — vulkanize köşe parça yerine düz kesim yapılması köşelerden su sızıntısına yol açar.\n3. **Conta eksikliği** — yatay-düşey profil birleşimlerinde conta atlanması hava ve su geçişine zemin hazırlar.\n\nDetaylı proje danışmanlığı için OZZO Alüminyum ile iletişime geçebilirsiniz.',
+  hata: '**Alüminyum doğramada en sık yapılan 3 hata:**\n1. **Ankraj slot/sabit delik hatası** — üst ankrajda slot delik yerine sabit delik kullanılması profilin kaymasına neden olur.\n2. **İç cam fitili köşe birleşimi** — vulkanize köşe parça yerine düz kesim yapılması köşelerden su sızıntısına yol açar.\n3. **Conta eksikliği** — yatay-düşey profil birleşimlerinde conta atlanması hava ve su geçişine zemin hazırlar.\n\nDetaylı proje danışmanlığı için AluSight ile iletişime geçebilirsiniz.',
   aksesuar: '**Aksesuar montajında en çok yapılan 3 hata:**\n1. **Menteşe hizası** — menteşeler aynı düşey eksende hizalanmadığında kanat eğrilir, açılıp kapanma zorlaşır (HOPPE/GIESSE menteşelerinde ±0.5mm tolerans şarttır).\n2. **Kol torku** — vasistas/dönme kolu montajında yanlış tork uygulanması mekanizma arızasına yol açar; SIEGENIA TITAN kollar için 3-4 Nm tork önerilir.\n3. **Kilit karşılığı hizası** — gömme kilit karşılıkları 1mm'den fazla kaymışsa kapı/pencere kilitlenemez veya zorlanır; montajda şablon kullanımı zorunludur.',
-  teknik: '**Alüminyum doğramada 3 kritik teknik değer:**\n1. **Isı geçirgenlik (Uw)** — TS 825\'e göre Bölge 1\'de Uw ≤ 2.4 W/m²K olmalıdır; ısı yalıtımlı profil kullanımıyla bu değer önemli ölçüde düşürülebilir.\n2. **Hava geçirmezlik** — EN 12207 standardına göre Sınıf 4, maksimum 600 Pa basınca dayanıklı olmalıdır.\n3. **Rüzgar yükü direnci** — EN 12210 standardı Sınıf C5: 2000 Pa pozitif ve negatif basınca karşı dayanım şarttır.\n\nDetaylı hesaplama ve proje danışmanlığı için OZZO Alüminyum ile iletişime geçebilirsiniz.',
-  surme: '**Sürme sistemlerde 3 kritik teknik nokta:**\n1. **Kanat ağırlığı ve ray seçimi** — standart sürme rayda max. 100 kg, kaldır-sür (lift & slide) sistemde 400 kg\'a kadar çıkılabilir; ray kesiti yük kapasitesine göre seçilmeli.\n2. **Hava sızdırmazlık** — EN 12207 Sınıf 2–3, fırça contalar ve EPDM fitil kombinasyonu şarttır; eksik conta rüzgarda ıslık sesine yol açar.\n3. **Termal köprü** — ısı yalıtımlı sürme profilde PA66 bant kesintisiz olmalı, aksi halde profil üzerinde yoğuşma oluşur.\n\nDetaylı danışmanlık için OZZO Alüminyum ile iletişime geçebilirsiniz.',
-  surme_hata: '**Sürme sistemlerde en sık yapılan 3 hata:**\n1. **Ray hizası bozukluğu** — üst ve alt raylar aynı düşey düzlemde olmadığında kanat sürünmesi zorlaşır ve raya zarar verir.\n2. **Drenaj deliği tıkanması** — alt profilden su çıkışı sağlayan drenaj delikleri yapı köpüğüyle kapandığında su birikmesi ve korozyon başlar.\n3. **Takoz eksikliği** — cam altına cam takozları yerleştirilmediğinde cam ağırlığı contaya yüklenip sızdırmazlık bozulur.\n\nDetaylı danışmanlık için OZZO Alüminyum ile iletişime geçebilirsiniz.',
-  surme_isi: '**Sürme sistemlerde ısı değerleri:**\n1. **Standart sürme** — Uw = 2.8–3.5 W/m²K; ısı yalıtımlı sürme sistemde PA66 bant ile Uw = 1.6–2.2 W/m²K\'e düşer.\n2. **TS 825 uyumu** — Türkiye Bölge 1\'de sürme pencereler için Uw ≤ 2.4 W/m²K gereklidir; Low-E cam ve ısıcam şarttır.\n3. **Kaldır-sür (lift & slide)** — büyük cam alanları için ideal; termal break profil ve triple cam ile Uw = 0.8 W/m²K\'e kadar inilebilir.\n\nDetaylı danışmanlık için OZZO Alüminyum ile iletişime geçebilirsiniz.',
-  cephe: '**Giydirme cephe (curtain wall) 3 kritik teknik konu:**\n1. **Sistem tipi** — Stick (saha montajı) sistemde profil derinliği 50–65 mm; Unitize (fabrika montajı) sistemde 150 mm\'ye kadar çıkar.\n2. **Rüzgar yükü direnci** — Türkiye\'de temel rüzgar hızı 25–27 m/s olup cephe sistemleri bölgeye göre hesaplanan rüzgar yüküne dayanıklı tasarlanmalıdır.\n3. **Spandrel bölge** — galvaniz tava + 50 mm taşyünü + alüminyum spandrel panel katmanlanması zorunludur, aksi hâlde yangın ve ısı kaybı riski oluşur.\n\nDetaylı hesaplama ve proje danışmanlığı için OZZO Alüminyum ile iletişime geçebilirsiniz.',
-  yalitim: '**Isı yalıtımında 3 kritik konu:**\n1. **Profil ısı geçirgenliği (Uf)** — ısı köprü kesici PA66 bant kullanımıyla profil ısı geçirgenliği önemli ölçüde düşürülür; ısı yalıtımlı ve yalıtımsız profiller arasında büyük fark vardır.\n2. **Cam seçimi** — standart çift cam ile Low-E kaplamalı cam arasındaki ısı geçirgenlik farkı enerji tasarrufunda belirleyici rol oynar.\n3. **Yoğuşma riski** — iç yüzey sıcaklığı çiy noktasının altına düştüğünde yoğuşma oluşur; bu durum küf ve nem hasarına yol açar, profil ve cam seçimi bu riski doğrudan etkiler.\n\nDetaylı hesaplama ve proje danışmanlığı için OZZO Alüminyum ile iletişime geçebilirsiniz.',
-  fiyat: 'Standart sistem yaklaşık 800–1.400 ₺/m², ısı yalıtımlı sistem 1.200–2.200 ₺/m² (KDV hariç, montaj dahil). Kesin teklif için ölçüleri paylaşın.\n\nDetaylı proje fiyatlandırması için OZZO Alüminyum ile iletişime geçebilirsiniz.',
-  teklif: 'Teklif için +90 535 861 04 04 numaralı hattı arayabilir veya sayfadaki teklif formunu doldurabilirsiniz. Pzt–Cuma 08:00–16:00.',
-  bakim: '**Bakım için 3 kritik adım:**\n1. Yılda 2 kez nötr deterjanla profil ve cam temizliği (asit/baz içeren ürünler eloksal kaplamasına zarar verir).\n2. 6 ayda bir ray ve menteşelere silikonlu sprey yağ uygulanmalıdır.\n3. Conta ve fitillerin 5–7 yılda bir kontrolü ve gerekirse değişimi önerilir.\n\nDetaylı bakım anlaşması için OZZO Alüminyum ile iletişime geçebilirsiniz.',
+  teknik: '**Alüminyum doğramada 3 kritik teknik değer:**\n1. **Isı geçirgenlik (Uw)** — TS 825\'e göre Bölge 1\'de Uw ≤ 2.4 W/m²K olmalıdır; ısı yalıtımlı profil kullanımıyla bu değer önemli ölçüde düşürülebilir.\n2. **Hava geçirmezlik** — EN 12207 standardına göre Sınıf 4, maksimum 600 Pa basınca dayanıklı olmalıdır.\n3. **Rüzgar yükü direnci** — EN 12210 standardı Sınıf C5: 2000 Pa pozitif ve negatif basınca karşı dayanım şarttır.\n\nDetaylı hesaplama ve proje danışmanlığı için AluSight ile iletişime geçebilirsiniz.',
+  surme: '**Sürme sistemlerde 3 kritik teknik nokta:**\n1. **Kanat ağırlığı ve ray seçimi** — standart sürme rayda max. 100 kg, kaldır-sür (lift & slide) sistemde 400 kg\'a kadar çıkılabilir; ray kesiti yük kapasitesine göre seçilmeli.\n2. **Hava sızdırmazlık** — EN 12207 Sınıf 2–3, fırça contalar ve EPDM fitil kombinasyonu şarttır; eksik conta rüzgarda ıslık sesine yol açar.\n3. **Termal köprü** — ısı yalıtımlı sürme profilde PA66 bant kesintisiz olmalı, aksi halde profil üzerinde yoğuşma oluşur.\n\nDetaylı danışmanlık için AluSight ile iletişime geçebilirsiniz.',
+  surme_hata: '**Sürme sistemlerde en sık yapılan 3 hata:**\n1. **Ray hizası bozukluğu** — üst ve alt raylar aynı düşey düzlemde olmadığında kanat sürünmesi zorlaşır ve raya zarar verir.\n2. **Drenaj deliği tıkanması** — alt profilden su çıkışı sağlayan drenaj delikleri yapı köpüğüyle kapandığında su birikmesi ve korozyon başlar.\n3. **Takoz eksikliği** — cam altına cam takozları yerleştirilmediğinde cam ağırlığı contaya yüklenip sızdırmazlık bozulur.\n\nDetaylı danışmanlık için AluSight ile iletişime geçebilirsiniz.',
+  surme_isi: '**Sürme sistemlerde ısı değerleri:**\n1. **Standart sürme** — Uw = 2.8–3.5 W/m²K; ısı yalıtımlı sürme sistemde PA66 bant ile Uw = 1.6–2.2 W/m²K\'e düşer.\n2. **TS 825 uyumu** — Türkiye Bölge 1\'de sürme pencereler için Uw ≤ 2.4 W/m²K gereklidir; Low-E cam ve ısıcam şarttır.\n3. **Kaldır-sür (lift & slide)** — büyük cam alanları için ideal; termal break profil ve triple cam ile Uw = 0.8 W/m²K\'e kadar inilebilir.\n\nDetaylı danışmanlık için AluSight ile iletişime geçebilirsiniz.',
+  cephe: '**Giydirme cephe (curtain wall) 3 kritik teknik konu:**\n1. **Sistem tipi** — Stick (saha montajı) sistemde profil derinliği 50–65 mm; Unitize (fabrika montajı) sistemde 150 mm\'ye kadar çıkar.\n2. **Rüzgar yükü direnci** — Türkiye\'de temel rüzgar hızı 25–27 m/s olup cephe sistemleri bölgeye göre hesaplanan rüzgar yüküne dayanıklı tasarlanmalıdır.\n3. **Spandrel bölge** — galvaniz tava + 50 mm taşyünü + alüminyum spandrel panel katmanlanması zorunludur, aksi hâlde yangın ve ısı kaybı riski oluşur.\n\nDetaylı hesaplama ve proje danışmanlığı için AluSight ile iletişime geçebilirsiniz.',
+  yalitim: '**Isı yalıtımında 3 kritik konu:**\n1. **Profil ısı geçirgenliği (Uf)** — ısı köprü kesici PA66 bant kullanımıyla profil ısı geçirgenliği önemli ölçüde düşürülür; ısı yalıtımlı ve yalıtımsız profiller arasında büyük fark vardır.\n2. **Cam seçimi** — standart çift cam ile Low-E kaplamalı cam arasındaki ısı geçirgenlik farkı enerji tasarrufunda belirleyici rol oynar.\n3. **Yoğuşma riski** — iç yüzey sıcaklığı çiy noktasının altına düştüğünde yoğuşma oluşur; bu durum küf ve nem hasarına yol açar, profil ve cam seçimi bu riski doğrudan etkiler.\n\nDetaylı hesaplama ve proje danışmanlığı için AluSight ile iletişime geçebilirsiniz.',
+  fiyat: 'Standart sistem yaklaşık 800–1.400 ₺/m², ısı yalıtımlı sistem 1.200–2.200 ₺/m² (KDV hariç, montaj dahil). Kesin teklif için ölçüleri paylaşın.\n\nDetaylı proje fiyatlandırması için AluSight ile iletişime geçebilirsiniz.',
+  teklif: 'Teklif için +90 535 861 0404 numaralı hattı arayabilir veya sayfadaki teklif formunu doldurabilirsiniz. Pzt–Cuma 08:00–16:00.',
+  bakim: '**Bakım için 3 kritik adım:**\n1. Yılda 2 kez nötr deterjanla profil ve cam temizliği (asit/baz içeren ürünler eloksal kaplamasına zarar verir).\n2. 6 ayda bir ray ve menteşelere silikonlu sprey yağ uygulanmalıdır.\n3. Conta ve fitillerin 5–7 yılda bir kontrolü ve gerekirse değişimi önerilir.\n\nDetaylı bakım anlaşması için AluSight ile iletişime geçebilirsiniz.',
   garanti: '10 yıl yapısal garanti, 5 yıl mekanik aksam garantisi. Profil deformasyonu ve yüzey kaplama solması garanti kapsamındadır.',
-  default: '**Alüminyum doğrama ve giydirme cephe** konusunda yardımcı olabilirim.\n\nSormak isteyebileceğiniz konular:\n• Isı geçirgenlik değerleri ve formüller\n• Montaj hataları ve doğru uygulamalar\n• Rüzgar yükü hesabı\n• Sistem seçimi (sürme, giydirme cephe vb.)\n\nDetaylı bilgi için OZZO Alüminyum ile iletişime geçebilirsiniz.',
+  default: '**Alüminyum doğrama ve giydirme cephe** konusunda yardımcı olabilirim.\n\nSormak isteyebileceğiniz konular:\n• Isı geçirgenlik değerleri ve formüller\n• Montaj hataları ve doğru uygulamalar\n• Rüzgar yükü hesabı\n• Sistem seçimi (sürme, giydirme cephe vb.)\n\nDetaylı bilgi için AluSight ile iletişime geçebilirsiniz.',
 }
 
 function localFallback(text) {
@@ -136,7 +136,7 @@ export default function AiChat() {
     if (open && messages.length === 0) {
       setMessages([{
         role: 'assistant',
-        text: '👋 Merhaba! OZZO MİMARİ VE TEKNİK EKİBİ olarak hizmetinizdeyiz.\n\nAlüminyum doğrama, giydirme cephe, sürme sistemler ve daha fazlası hakkında sorularınızı yanıtlayabiliriz.',
+        text: '👋 Merhaba! AluSight MİMARİ VE TEKNİK EKİBİ olarak hizmetinizdeyiz.\n\nAlüminyum doğrama, giydirme cephe, sürme sistemler ve daha fazlası hakkında sorularınızı yanıtlayabiliriz.',
         ts: Date.now(),
       }])
     }
@@ -269,7 +269,7 @@ export default function AiChat() {
             <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border border-[#0a0f28]"/>
           </div>
           <div className="flex-1 min-w-0">
-            <div className="text-white font-bold text-sm leading-tight">OZZO Teknik Danışman</div>
+            <div className="text-white font-bold text-sm leading-tight">AluSight Teknik Danışman</div>
             <div className="text-green-400 text-[10px] font-mono">● Çevrimiçi — Türkçe / İngilizce</div>
           </div>
           <button onClick={() => setShowKey(true)} className="text-white/30 hover:text-white/60 transition-colors p-1" title="API Ayarları">

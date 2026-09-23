@@ -505,7 +505,7 @@ export default function ErcomCalculator() {
               {[
                 { id: 'summary',  label: 'Özet' },
                 { id: 'detail',   label: 'Detay' },
-                { id: 'ai',       label: 'OZZO Öneri' },
+                { id: 'ai',       label: 'AluSight Öneri' },
                 { id: 'report',   label: 'Rapor / Teklif' },
               ].map(t => (
                 <button key={t.id} onClick={() => setActiveTab(t.id)}
@@ -622,7 +622,7 @@ export default function ErcomCalculator() {
             {activeTab === 'ai' && (
               <div className="max-w-2xl mx-auto space-y-3">
                 <div className="text-center text-white/35 text-xs mb-6 font-display">
-                  OZZO destekli performans & optimizasyon analizi
+                  AluSight destekli performans & optimizasyon analizi
                 </div>
                 {recommendations.map((rec, i) => (
                   <div key={i} className={`flex gap-4 p-4 rounded-lg border ${
@@ -643,7 +643,7 @@ export default function ErcomCalculator() {
               <div className="max-w-2xl mx-auto">
                 <div className="bg-white/4 border border-white/10 rounded-lg p-7 space-y-5 font-mono text-xs">
                   <div className="border-b border-white/15 pb-4">
-                    <div className="text-green-400 font-bold text-base">OZZO Alüminyum — PVC Hesaplama Raporu</div>
+                    <div className="text-green-400 font-bold text-base">AluSight — PVC Hesaplama Raporu</div>
                     <div className="text-white/35 mt-1">Ercom Modülü · {new Date().toLocaleDateString('tr-TR')}</div>
                   </div>
                   <div className="grid grid-cols-2 gap-5">

@@ -2,9 +2,9 @@ import { useState, useRef, useEffect, useCallback } from 'react'
 import { getStoredApiKey, saveApiKey } from '../utils/visionAnalysis'
 
 /* ── Gemini sistem prompt ─────────────────────────────────── */
-const SYSTEM = `Sen OZZO Alüminyum firmasının uzman yapay zeka asistanısın.
+const SYSTEM = `Sen AluSight firmasının uzman yapay zeka asistanısın.
 Alüminyum doğrama, giydirme cephe, sürme sistemler, ısı yalıtımlı profiller, cam sistemleri, ankraj, montaj ve yapı kabuğu konularında derin teknik bilgiye sahipsin.
-Firma: OZZO Alüminyum | Tel: 0535 861 04 04 | Çalışma: Pzt-Cuma 08:00-16:00
+Firma: AluSight | Tel: +90 535 861 0404 | Çalışma: Pzt-Cuma 08:00-16:00
 Kurallar: Türkçe yanıtla, maks 4 cümle. Teknik sorularda EN/ISO standardı ver. Fiyat sorularında yaklaşık m² aralığı ver ve kesin teklif için iletişime yönlendir.`
 
 /* ── Cam seçenekleri ──────────────────────────────────────── */
@@ -333,7 +333,7 @@ export default function AIAssistant() {
   const [open,      setOpen]      = useState(false)
   const [tab,       setTab]       = useState(0)
   const [msgs,      setMsgs]      = useState([{
-    role:'bot', text:'Merhaba! Ben OZZO Teknik Danışmanı. Alüminyum sistemleri, teknik özellikler, fiyat ve teklif konularında size yardımcı olabilirim.', ts: Date.now(),
+    role:'bot', text:'Merhaba! Ben AluSight Teknik Danışmanı. Alüminyum sistemleri, teknik özellikler, fiyat ve teklif konularında size yardımcı olabilirim.', ts: Date.now(),
   }])
   const [input,     setInput]     = useState('')
   const [loading,   setLoading]   = useState(false)
@@ -439,7 +439,7 @@ export default function AIAssistant() {
       {/* ── Launcher buton ─────────────────────────────────────────── */}
       <button
         onClick={() => { setOpen(o => !o); setTimeout(() => inputRef.current?.focus(), 280) }}
-        aria-label="OZZO Teknik Danışman"
+        aria-label="AluSight Teknik Danışman"
         style={{
           position:'fixed', bottom:100, right:32, zIndex:60,
           width:58, height:58, borderRadius:10, border:'none', cursor:'pointer',
@@ -553,7 +553,7 @@ export default function AIAssistant() {
               </svg>
             </div>
             <div style={{ flex:1 }}>
-              <div style={{ fontFamily:'Montserrat,sans-serif', fontSize:13, fontWeight:700, color:'#c9a84c', letterSpacing:0.8 }}>OZZO Teknik Danışman</div>
+              <div style={{ fontFamily:'Montserrat,sans-serif', fontSize:13, fontWeight:700, color:'#c9a84c', letterSpacing:0.8 }}>AluSight Teknik Danışman</div>
               <div style={{ fontFamily:'Montserrat,sans-serif', fontSize:9.5, color:'rgba(74,222,128,0.7)', marginTop:1 }}>● Alüminyum Uzmanı · Çevrimiçi</div>
             </div>
             <button onClick={() => setShowKey(true)} title="API Ayarları" style={{

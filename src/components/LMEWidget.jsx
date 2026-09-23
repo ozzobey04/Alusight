@@ -1,7 +1,96 @@
 import { useState, useEffect, useRef } from 'react'
 
-const USD_TRY  = 38.6        // yaklaşık kur (Mart 2026)
-const BASE_NOW = 3384        // LME Al güncel baz (10 Mart 2026)
+const USD_TRY_FALLBACK = 47.9  // TCMB'ye ulaşılamazsa kullanılan son bilinen kur
+const BASE_NOW = 3219          // LME Al Cash-Settlement son bilinen baz (18 Ağustos 2026)
+
+/* Birincil kaynak — Westmetall LME Aluminium Cash-Settlement tablosu */
+const WM_URL = 'https://www.westmetall.com/en/markdaten.php?action=table&field=LME_Al_cash'
+
+/* Kur kaynağı — TCMB günlük döviz kurları bülteni */
+const TCMB_URL = 'https://www.tcmb.gov.tr/kurlar/today.xml'
+
+const MONTHS = {
+  january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
+  july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
+}
+
+/* ── Westmetall tablosu ayrıştırma ──────────────────────
+   Hem ham HTML (<td>18. August 2026</td><td>3,219.00</td>) hem de
+   metin/markdown biçimini (| 18. August 2026 | 3,219.00 |) kabul eder. */
+function parseWestmetall(raw) {
+  const txt = String(raw)
+    .replace(/<\/t[dh]>/gi, ' | ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/&nbsp;/gi, ' ')
+
+  const rx = /(\d{1,2})\.\s*(january|february|march|april|may|june|july|august|september|october|november|december)\s+(\d{4})\s*\|\s*([\d.,]+)/gi
+
+  const rows = []
+  let m
+  while ((m = rx.exec(txt))) {
+    const price = parseFloat(m[4].replace(/,/g, ''))
+    if (!Number.isFinite(price) || price < 1000 || price > 10000) continue
+    rows.push({
+      price: parseFloat(price.toFixed(2)),
+      date: new Date(Number(m[3]), MONTHS[m[2].toLowerCase()], Number(m[1])),
+    })
+  }
+  if (rows.length < 5) throw new Error('westmetall: tablo ayrıştırılamadı')
+
+  // Tablo en yeniden eskiye sıralı — artan sıraya çevir, son 30 borsa gününü al
+  rows.sort((a, b) => a.date - b.date)
+  return rows.slice(-30)
+}
+
+/* ── Proxy zinciri ───────────────────────────────────────
+   Westmetall ve TCMB CORS başlığı göndermediği için tarayıcı doğrudan
+   okuyamaz. Önce kendi uç noktamız (Vite dev proxy / serverless), sonra
+   CORS destekli genel proxy'ler denenir; ilk ayrıştırılabilen yanıt kazanır. */
+async function fetchViaProxy(localPath, url, parse) {
+  const enc = encodeURIComponent(url)
+  const chain = [
+    { url: localPath },
+    { url: `https://r.jina.ai/${url}`, headers: { 'x-no-cache': 'true' } },
+    { url: `https://api.codetabs.com/v1/proxy?quest=${enc}` },
+    { url: `https://api.allorigins.win/raw?url=${enc}` },
+  ]
+  for (const c of chain) {
+    try {
+      const r = await fetch(c.url, { headers: c.headers, signal: AbortSignal.timeout(9000) })
+      if (!r.ok) continue
+      return parse(await r.text())
+    } catch { /* sıradaki kaynak */ }
+  }
+  return null
+}
+
+async function fetchWestmetall() {
+  const prices = await fetchViaProxy('/api/westmetall', WM_URL, parseWestmetall)
+  if (!prices) throw new Error('westmetall erişilemedi')
+  return { prices, live: true, src: 'Westmetall · LME' }
+}
+
+/* ── TCMB USD/TRY ────────────────────────────────────────
+   Ham XML: <Currency ... CurrencyCode="USD"> ... <ForexSelling>47.9155</...>
+   Metne indirgenmiş biçim (r.jina.ai): "US DOLLAR" satırından sonra sırasıyla
+   ForexBuying · ForexSelling · BanknoteBuying · BanknoteSelling gelir. */
+function parseTcmb(raw) {
+  const txt = String(raw)
+
+  const xml = txt.match(/CurrencyCode="USD"[\s\S]{0,600}?<ForexSelling>\s*([\d.]+)\s*<\/ForexSelling>/i)
+  const rate = xml
+    ? parseFloat(xml[1])
+    : parseFloat((txt.match(/US\s+DOLLAR\s*[\r\n\s]*([\d.]+)\s*[\r\n\s]*([\d.]+)/i) || [])[2])
+
+  if (!Number.isFinite(rate) || rate < 5 || rate > 500) throw new Error('tcmb: kur okunamadı')
+
+  const d = txt.match(/Tarih="(\d{2}\.\d{2}\.\d{4})"/)
+  return { rate: parseFloat(rate.toFixed(4)), date: d?.[1] || null }
+}
+
+async function fetchUsdTry() {
+  return fetchViaProxy('/api/tcmb', TCMB_URL, parseTcmb)
+}
 
 /* ── Gerçekçi mock (doğru baz fiyat) ─────────────────── */
 function genMock() {
@@ -20,8 +109,11 @@ function genMock() {
   return prices
 }
 
-/* ── Fiyat çekme (birden fazla kaynak) ────────────────── */
+/* ── Fiyat çekme — önce Westmetall, sonra yedek kaynaklar ── */
 async function fetchPrice() {
+  // 1) Westmetall — LME resmi Cash-Settlement tablosu
+  try { return await fetchWestmetall() } catch { /* yedeklere geç */ }
+
   const yahooUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/ALI=F?interval=1d&range=1mo'
   const proxies = [
     () => fetch('/api/lme', { signal: AbortSignal.timeout(7000) }),
@@ -138,6 +230,7 @@ function Spark({ prices, positive }) {
 /* ── Ana bileşen ──────────────────────────────────────── */
 export default function LMEWidget() {
   const [data,    setData]    = useState(null)
+  const [fx,      setFx]      = useState(null)   // { rate, date } — TCMB
   const [loading, setLoading] = useState(true)
   const [mini,    setMini]    = useState(false)
   const [tab,     setTab]     = useState('chart')   // 'chart' | 'tv'
@@ -145,6 +238,7 @@ export default function LMEWidget() {
 
   useEffect(() => {
     fetchPrice().then(d => { setData(d); setLoading(false) })
+    fetchUsdTry().then(setFx).catch(() => setFx(null))
   }, [])
 
   // TradingView widget yükle
@@ -180,7 +274,8 @@ export default function LMEWidget() {
   const positive = change >= 0
   const hi30     = prices.length ? Math.max(...prices.map(p => p.price)) : 0
   const lo30     = prices.length ? Math.min(...prices.map(p => p.price)) : 0
-  const tryKg    = (current * USD_TRY / 1000).toFixed(1)
+  const usdTry   = fx?.rate ?? USD_TRY_FALLBACK
+  const tryKg    = (current * usdTry / 1000).toFixed(1)
 
   const C = (v, d = 2) => v.toLocaleString('tr-TR', { minimumFractionDigits: d, maximumFractionDigits: d })
 
@@ -325,8 +420,8 @@ export default function LMEWidget() {
                 borderRadius: 7, padding: '6px 9px',
               }}>
                 {[
-                  { qty: '1 kg',  val: (current * USD_TRY / 1000) },
-                  { qty: '1 ton', val: current * USD_TRY },
+                  { qty: '1 kg',  val: (current * usdTry / 1000) },
+                  { qty: '1 ton', val: current * usdTry },
                 ].map(r => (
                   <div key={r.qty} style={{ display: 'flex', justifyContent: 'space-between', padding: '2px 0' }}>
                     <span style={{ fontSize: 9.5, color: 'rgba(180,200,220,0.5)' }}>{r.qty}</span>
@@ -336,7 +431,9 @@ export default function LMEWidget() {
                   </div>
                 ))}
                 <div style={{ fontSize: 7, color: 'rgba(180,200,220,0.22)', marginTop: 3 }}>
-                  USD/TRY ~{USD_TRY} · bilgi amaçlıdır
+                  {fx
+                    ? `USD/TRY ${C(usdTry, 4)} · TCMB${fx.date ? ` ${fx.date}` : ''} · bilgi amaçlıdır`
+                    : `USD/TRY ~${C(usdTry, 2)} · bilgi amaçlıdır`}
                 </div>
               </div>
             </>
